@@ -2,23 +2,23 @@
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
 > * [Function](#Function)
->   * [Argument](#Function:-Argument)
->     * [Default](#Function:-Argument:-Default)
->     * [Upgrade](#Function:-Argument:-Upgrade)
->   * [Method](#Function:-Method)
->   * [Template](#Function:-Template)
->   * [Modifier](#Function:-Modifier)
->     * [Async](#Function:-Modifier:-Async)
->     * [Inline](#Function:-Modifier:-Inline)
+>   * [Argument](#Function-Argument)
+>     * [Default](#Function-Argument-Default)
+>     * [Upgrade](#Function-Argument-Upgrade)
+>   * [Method](#Function-Method)
+>   * [Template](#Function-Template)
+>   * [Modifier](#Function-Modifier)
+>     * [Async](#Function-Modifier-Async)
+>     * [Inline](#Function-Modifier-Inline)
 > * [Declare](#Declare)
 > * [Assign](#Assign)
 > * [If statement](#If-statement)
->   * [Elif statement](#If:-Elif)
->   * [Else statement](#If:-Else)
+>   * [Elif statement](#If-Elif)
+>   * [Else statement](#If-Else)
 > * [Expression](#Expression)
 > * [Import](#Import)
->   * [Import As](#Import:-As)
->   * [Import Direct](#Import:-Direct)
+>   * [Import As](#Import-As)
+>   * [Import Direct](#Import-Direct)
 > * [Expose](#Expose)
 > * [Class](#Class)
 > * [Async](#Async)
@@ -128,7 +128,7 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 ## Function: Template
 > Implementation Beta
 
-Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function:-Argument:-Upgrade) and the name specified can then be used as a type/class name within the function arguments and body.
+Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a type/class name within the function arguments and body.
 
 Note that the brackets of the specifier must be before any modifiers
 
