@@ -2,23 +2,23 @@
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
 > * [Function](#Function)
->   * [Argument](#Function:%20Argument)
->     * [Default](#Function:%20Argument:%20Default)
->     * [Upgrade](#Function:%20Argument:%20Upgrade)
->   * [Method](#Function:%20Method)
->   * [Template](#Function:%20Template)
->   * [Modifier](#Function:%20Modifier)
->     * [Async](#Function:%20Modifier:%20Async)
->     * [Inline](#Function:%20Modifier:%20Inline)
+>   * [Argument](#Function:-Argument)
+>     * [Default](#Function:-Argument:-Default)
+>     * [Upgrade](#Function:-Argument:-Upgrade)
+>   * [Method](#Function:-Method)
+>   * [Template](#Function:-Template)
+>   * [Modifier](#Function:-Modifier)
+>     * [Async](#Function:-Modifier:-Async)
+>     * [Inline](#Function:-Modifier:-Inline)
 > * [Declare](#Declare)
 > * [Assign](#Assign)
-> * [If statement](#If%20statement)
->   * [Elif statement](#If:%20Elif)
->   * [Else statement](#If:%20Else)
+> * [If statement](#If-statement)
+>   * [Elif statement](#If:-Elif)
+>   * [Else statement](#If:-Else)
 > * [Expression](#Expression)
 > * [Import](#Import)
->   * [Import As](#Import:%20As)
->   * [Import Direct](#Import:%20Direct)
+>   * [Import As](#Import:-As)
+>   * [Import Direct](#Import:-Direct)
 > * [Expose](#Expose)
 > * [Class](#Class)
 > * [Async](#Async)
@@ -128,7 +128,7 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 ## Function: Template
 > Implementation Beta
 
-Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function:%20Argument:%20Upgrade) and the name specified can then be used as a type/class name within the function arguments and body.
+Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function:-Argument:-Upgrade) and the name specified can then be used as a type/class name within the function arguments and body.
 
 Note that the brackets of the specifier must be before any modifiers
 
