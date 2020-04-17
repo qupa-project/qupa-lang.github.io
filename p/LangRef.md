@@ -51,7 +51,7 @@ Function arguments must each have a type, and a name. Each argument must be deli
 <type> <name>, <type2> <name2>
 ```
 
-### Function: Argument: Defaults
+### Function: Argument: Default
 > Implmentation Stage: Beta/Release
 
 Arguments may have a default value which it will posess if no value is specified at a call point. These values must be static constants, which are resolved at compile time.
