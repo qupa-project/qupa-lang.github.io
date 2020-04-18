@@ -12,6 +12,7 @@
 >     * [Inline](#Function-Modifier-Inline)
 > * [Declare](#Declare)
 > * [Assign](#Assign)
+>   * [Short Hand](#Assign-Short-Hand)
 > * [If statement](#If-statement)
 >   * [Elif statement](#If-Elif)
 >   * [Else statement](#If-Else)
@@ -30,24 +31,24 @@
 Functions are defined with a static return type, with zero to many function arguments. A function may only return once, attempting to return more than once will result in a runtime error.
 
 **Syntax Definition:**
-```qupa
+```
 <type_rtrn> <func_name> ( <arguments> ) {
   <body>
 }
 ```
 **Syntax Call**
-```qupa
-<func_name>(<arguments>)
+```
+<func_name> ( <arguments> )
 ```
 
 ## Function: Argument
 Function arguments must each have a type, and a name. Each argument must be delimetered by a ``,``, however there must not be a trailing ``,``.
 
 **Syntax:**
-```qupa
+```
 <type> <name>
 ```
-```qupa
+```
 <type> <name>, <type2> <name2>
 ```
 
@@ -57,7 +58,7 @@ Function arguments must each have a type, and a name. Each argument must be deli
 Arguments may have a default value which it will posess if no value is specified at a call point. These values must be static constants, which are resolved at compile time.
 
 **Syntax:**
-```qupa
+```
 <type> <name> = <constant>
 ```
 
@@ -93,7 +94,7 @@ There can be multiple definitions under the same function definition within the 
 Function modifiers are optional, however they change the compilation and execution behaviour of a function. Modifiers are listed by adding a ``:`` after the function name, then listing the modifiers afterwards. Note that multiple modifiers can be used via using a space `` `` as the deliminer.
 
 **Syntax**
-```qupa
+```
 <type> <name>: <modifier> (<arguments>) {
   <body>
 }
@@ -107,7 +108,7 @@ The ``async`` modifier specified this function will behave asynchnously. Meaning
 Note that the async modifier cannot be used at the same time as the ``inline`` modifier.
 
 **Syntax:**
-```qupa
+```
 <type> <name>: async ( <arguments> ) {
   <body>
 }
@@ -119,7 +120,7 @@ Note that the async modifier cannot be used at the same time as the ``inline`` m
 The ``inline`` deliminer specifies to the compiler to embed the behaviour of this function at the place of calling.
 
 **Syntax:**
-```qupa
+```
 <type> <name>: inline ( <arguments> ) {
   <body>
 }
@@ -133,19 +134,19 @@ Allows the compile time generation of methods for this function based syntax inp
 Note that the brackets of the specifier must be before any modifiers
 
 **Syntax: Definition**
-```qupa
+```
 <type> <name>[<specifier>] (<arguments>) {
   <body>
 }
 ```
-```qupa
+```
 <type> <name>[<specifier>]: async (<arguments>) {
   <body>
 }
 ```
 
 **Syntax: Execution**
-```qupa
+```
 <name>[<specifier>](<arguments>)
 ```
 
@@ -153,8 +154,46 @@ Note that the brackets of the specifier must be before any modifiers
 
 
 # Declare
+Variable can be defined in two scopes: global; and function. All definitions are raised to the top of the current scope. Thus if defining a varaible at any point within a function would be have the same as defining it at the beginning of the function.
+```
+<type> <name>
+```
 
 # Assign
+
+Assigns the result of an expression being resolved to a certain variable. How expressions are resolved are defined within [expression](#Expression).
+
+```
+<name> = <expr>;
+```
+
+## Assign: Short Hand
+> Implemented in beta stage
+
+Long form
+```
+<name> = <name> <opper> ( <expr> );
+```
+Short form
+```
+<name> <opper>= <expr>;
+```
+
+Operations that the short form can be applied to; ``+``, ``-``, ``*``, ``/``
+
+**Examples:**
+```qupa
+number += a;
+```
+```qupa
+number -= a;
+```
+```qupa
+number *= a;
+```
+```qupa
+number /= a;
+```
 
 # If statement
 ## If: Elif
