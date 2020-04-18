@@ -1,9 +1,9 @@
 **Index:**
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
-> * [Comments](#Comments)
-> * [Single Line](#Comments-Single-Line)
-> * [Multi Line](#Comments-Multi-Line)
+> * [Comment](#Comment)
+>   * [Single Line](#Comment-Single-Line)
+>   * [Multi Line](#Comment-Multi-Line)
 > * [Function](#Function)
 >   * [Argument](#Function-Argument)
 >     * [Default](#Function-Argument-Default)
@@ -289,6 +289,22 @@ if (false) {
 ```
 
 # Expression
+Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).  
+
+The order of operations are (from last executed to first);  
+| Operation | Syntax | Class Standard Method |
+|:-|:-|:-|
+Brackets | ``( <expr> )`` | -
+Add (boolean/set) | ``<opperand> && <opperand>`` | Yes
+Or (boolean/set) | ``<opperand> || <opperand>`` | Yes
+Modulus | ``<opperand> % <opperand>`` | Yes
+Multiplication | ``<opperand> * <opperand>`` | Yes
+Division | ``<opperand> / <opperand>`` | Yes
+Addition | ``<opperand> +<opperand> `` | Yes
+Subtraction | ``<opperand> - <opperand>`` | Yes
+Invert (aka Not) | ``!<opperand>`` | Yes
+Address | ``@<variable_name>`` | -
+Function calls (Synchronous) | [definition](#Function) | -
 
 # Import
 
@@ -301,6 +317,10 @@ if (false) {
 # Class
 
 ## Class: Standard Methods
+### Class: Standard Methods: Get
+### Class: Standard Methods: Invert
+### Class: Standard Methods: And (boolean/set)
+### Class: Standard Methods: Or (boolean/set)
 ### Class: Standard Methods: Add
 ### Class: Standard Methods: Subtract
 ### Class: Standard Methods: Multiply
