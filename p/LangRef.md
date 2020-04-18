@@ -1,6 +1,9 @@
 **Index:**
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
+> * [Comments](#Comments)
+> * [Single Line](#Comments-Single-Line)
+> * [Multi Line](#Comments-Multi-Line)
 > * [Function](#Function)
 >   * [Argument](#Function-Argument)
 >     * [Default](#Function-Argument-Default)
@@ -22,10 +25,44 @@
 >   * [Import Direct](#Import-Direct)
 > * [Expose](#Expose)
 > * [Class](#Class)
+>   * [Standard Methods](#Class-Standard-Methods)
+>     * [Add](#Class-Standard-Methods-Add)
+>     * [Subtract](#Class-Standard-Methods-Subtract)
+>     * [Multiply](#Class-Standard-Methods-Multiply)
+>     * [Divide](#Class-Standard-Methods-Divide)
+>     * [Modulo](#Class-Standard-Methods-Modulo)
+>     * [Valid](#Class-Standard-Methods-Valid)
+>     * [Equal](#Class-Standard-Methods-Equal)
+>     * [Less](#Class-Standard-Methods-Less)
+>     * [Less Equal](#Class-Standard-Methods-Less-Equal)
+>     * [Greater](#Class-Standard-Methods-Greater)
+>     * [Greater Equal](#Class-Standard-Methods-Greater-Equal)
+>     * [To String](#Class-Standard-Methods-To-String)
+> * [Interface](#Interface)
 > * [Async](#Async)
 
 # Abstract
 # Introduction
+
+# Comment
+Comments are sections of code which are purely for the aid of the programmer, and are ignored at the interpretation stage.
+
+## Comment: Single line
+This type of code comment will ignore everything from the start of a ``//`` to a new line character.
+
+**Syntax**
+```
+// <text>\n
+```
+
+## Comment: Multi Line
+This type of code comment will ignore everything from the start of a ``/*`` to a ``*/`` this can span multiple lines.
+
+**Syntax**
+```
+/* <text> */
+```
+
 
 # Function
 Functions are defined with a static return type, with zero to many function arguments. A function may only return once, attempting to return more than once will result in a runtime error.
@@ -163,6 +200,7 @@ Variable can be defined in two scopes: global; and function. All definitions are
 
 Assigns the result of an expression being resolved to a certain variable. How expressions are resolved are defined within [expression](#Expression).
 
+**Syntax:**
 ```
 <name> = <expr>;
 ```
@@ -196,8 +234,59 @@ number /= a;
 ```
 
 # If statement
+The [expression](#Expression) will be resolved according to the [expression](#Expression) definition, then the resulting value will have it's [class validity check](#Class-standard-methods-valid) ran. If the result is true, then the ``<body>`` code content will execute.
+
+After execution of the ``if`` clause execution will continue after the last chain of the ``if`` statement. Be that the last ``elif`` clause, or the last ``else`` clause.
+
+**Syntax:**
+```
+if ( <expr> ) {
+  <body>
+}
+```
 ## If: Elif
+These statement can be continued off of other [if statements](#If-Statement) and other [elif statements](#IF-Elif), however it cannot exist anywhere else. This behaves similarly to an ``if`` statement, however it will only execute if the previous ``if`` and ``elif`` statement's conditions fail.
+
+After execution of the ``elif`` clause execution will continue after the last chain of the ``if`` statement. Be that the last ``elif`` clause, or the last ``else`` clause.
+
+**Syntax:**
+```
+elif ( <expr> ) {
+  <body>
+}
+```
+
+**Examples**
+```qupa
+if (false) {
+  // will not execute
+} elif (true) {
+  // will execute
+}
+```
+
 ## If: Else
+This statement can be continued off of any [if statements](#If-Statement) or [elif statements](#IF-Elif), and will only execute the body code if the previous statement's conditions fail.
+
+After execution of the ``else`` clause executione will continue after it's closing bracket.
+
+**Syntax:**
+```
+else {
+  <body>
+}
+```
+
+**Examples**
+```qupa
+if (false) {
+  // will not execute
+} elif (false) {
+  // will not execute
+} else {
+  // will execute
+}
+```
 
 # Expression
 
@@ -210,5 +299,21 @@ number /= a;
 # Expose
 
 # Class
+
+## Class: Standard Methods
+### Class: Standard Methods: Add
+### Class: Standard Methods: Subtract
+### Class: Standard Methods: Multiply
+### Class: Standard Methods: Divide
+### Class: Standard Methods: Modulo
+### Class: Standard Methods: Valid
+### Class: Standard Methods: Equal
+### Class: Standard Methods: Less
+### Class: Standard Methods: Less Equal
+### Class: Standard Methods: Greater
+### Class: Standard Methods: Greater Equal
+### Class: Standard Methods: To String
+
+# Interface
 
 # Async
