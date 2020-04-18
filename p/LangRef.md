@@ -296,7 +296,7 @@ The order of operations are (from last executed to first);
 |:-|:-|:-|
 Brackets | ``( <expr> )`` | -
 Add (boolean/set) | ``<opperand> && <opperand>`` | Yes
-Or (boolean/set) | ``<opperand> || <opperand>`` | Yes
+Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
 Modulus | ``<opperand> % <opperand>`` | Yes
 Multiplication | ``<opperand> * <opperand>`` | Yes
 Division | ``<opperand> / <opperand>`` | Yes
