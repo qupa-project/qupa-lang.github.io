@@ -44,6 +44,8 @@
 # Abstract
 # Introduction
 
+Note that spacing in the syntax examples are optional. As long as white space doesn't interfer with a string, or a namespace. White space is completely ignored.
+
 # Comment
 Comments are sections of code which are purely for the aid of the programmer, and are ignored at the interpretation stage.
 
@@ -300,10 +302,10 @@ Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
 Modulus | ``<opperand> % <opperand>`` | Yes
 Multiplication | ``<opperand> * <opperand>`` | Yes
 Division | ``<opperand> / <opperand>`` | Yes
-Addition | ``<opperand> +<opperand> `` | Yes
+Addition | ``<opperand> + <opperand> `` | Yes
 Subtraction | ``<opperand> - <opperand>`` | Yes
-Invert (aka Not) | ``!<opperand>`` | Yes
-Address | ``@<variable_name>`` | -
+Invert (aka Not) | ``! <opperand>`` | Yes
+Address | ``@ <variable_name>`` | -
 Function calls (Synchronous) | [definition](#Function) | -
 
 # Import
