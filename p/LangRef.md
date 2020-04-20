@@ -138,6 +138,8 @@ or
 # Function
 Functions are defined with a static return type, with zero to many function arguments. A function may only return once, attempting to return more than once will result in a runtime error.
 
+The ``type_rtrn`` must be a classname accessible by the current scope.
+
 **Syntax Definition:**
 ```
 <type_rtrn> <func_name> ( <arguments> ) {
@@ -151,6 +153,8 @@ Functions are defined with a static return type, with zero to many function argu
 
 ## Function: Argument
 Function arguments must each have a type, and a name. Each argument must be delimetered by a ``,``, however there must not be a trailing ``,``.
+
+Type can be either a class name or an interface name. However if the type is filled with an interface name, then it must be marked as upgradable.
 
 **Syntax:**
 ```
@@ -203,7 +207,7 @@ Function modifiers are optional, however they change the compilation and executi
 
 **Syntax**
 ```
-<type> <name>: <modifier> (<arguments>) {
+<type_rtrn> <name>: <modifier> (<arguments>) {
   <body>
 }
 ```
@@ -217,7 +221,7 @@ Note that the async modifier cannot be used at the same time as the ``inline`` m
 
 **Syntax:**
 ```
-<type> <name>: async ( <arguments> ) {
+<type_rtrn> <name>: async ( <arguments> ) {
   <body>
 }
 ```
@@ -229,7 +233,7 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 
 **Syntax:**
 ```
-<type> <name>: inline ( <arguments> ) {
+<type_rtrn> <name>: inline ( <arguments> ) {
   <body>
 }
 ```
@@ -237,18 +241,20 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 ## Function: Template
 > Implementation Beta
 
-Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a type/class name within the function arguments and body.
+Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the function arguments and body.
 
-Note that the brackets of the specifier must be before any modifiers
+``type`` can be any classname or interface available within the current scope. However it it is an interface it must be upgradable.
+
+Note that the brackets of the specifier must be before any modifiers. Multiple specifiers are seperated via commas.
 
 **Syntax: Definition**
 ```
-<type> <name>[<specifier>] (<arguments>) {
+<type_rtrn> <name>[<specifier>] (<arguments>) {
   <body>
 }
 ```
 ```
-<type> <name>[<specifier>]: async (<arguments>) {
+<type_rtrn> <name>[<specifier>]: async (<arguments>) {
   <body>
 }
 ```
@@ -263,6 +269,9 @@ Note that the brackets of the specifier must be before any modifiers
 
 # Declare
 Variable can be defined in two scopes: global; and function. All definitions are raised to the top of the current scope. Thus if defining a varaible at any point within a function would be have the same as defining it at the beginning of the function.
+
+**Syntax:**
+``type`` must be a classname accessible to the current scope.
 ```
 <type> <name>
 ```
@@ -407,7 +416,7 @@ import "<filepath>" as <namespace>
 ```
 
 # Expose
-Exposing a namespace allows the variable/function/class to be accessed when imported in another file. If a namespace is not exposed then it cannot be accessed on importation.
+Exposing a namespace allows the variable/function/class/interface to be accessed when imported in another file. If a namespace is not exposed then it cannot be accessed on importation.
 
 ```
 expose <namespace>
@@ -500,7 +509,7 @@ class <namespace> extends <class> implements [ <interface1>, <interface2> ] {
 ## Class: Template
 This allows for dynamically generation of multiple versions of this class, each with customizeable structure and methods. This behaviour is very similar to [function templates](#Function-Template).
 
-Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a type/class name within the class body.
+Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the class body. ``type`` maybe a classname available within the current scope.
 
 When a class is defined in template form, the namespace itself assumes the form of an interface, which then all versions of the class generated then implement said interface, and extend the defined class if extend clause is present.
 
@@ -515,7 +524,8 @@ class <namespace>[<specifier>] {
 ```
 
 **Syntax Use:**
-Used in place of a ``<type>`` as seen in other syntax outlines.
+``namespace`` is the name of a template class available within the current scope.
+``type`` must be a classname available within the current scope.
 ```
 <namespace>[<type>]
 ```
@@ -526,7 +536,7 @@ They also may have any modifiers on them unless specified otherwise.
 
 It is assumed that these methods return a new class instance, rather than altering the existing instance they were called upon. I.e. ``a.__add__(b)`` should not alter ``a`` but instead return a new value for the result.
 
-### Class: Standard Method: Init
+### Class: Standard Methods: Init
 Init may **not** have the async specifier on it.
 ```
 class <namespace> {
@@ -539,7 +549,7 @@ class <namespace> {
 ### Class: Standard Methods: Get
 ```
 class <namespace> {
-  <type> __get__ (<attributes>) {
+  <classname> __get__ (<attributes>) {
 
   }
 }
@@ -557,7 +567,7 @@ class <namespace> {
 ### Class: Standard Methods: And (boolean/set)
 ```
 class <namespace> {
-  <namespace> __and__ (<type> <variable_1>) {
+  <namespace> __and__ (<classname> <variable_1>) {
 
   }
 }
@@ -566,7 +576,7 @@ class <namespace> {
 ### Class: Standard Methods: Or (boolean/set)
 ```
 class <namespace> {
-  <namespace> __or__ (<type> <variable_1>) {
+  <namespace> __or__ (<classname> <variable_1>) {
 
   }
 }
@@ -575,7 +585,7 @@ class <namespace> {
 ### Class: Standard Methods: Add
 ```
 class <namespace> {
-  <namespace> __add__ (<type> <variable_1>) {
+  <namespace> __add__ (<classname> <variable_1>) {
 
   }
 }
@@ -584,7 +594,7 @@ class <namespace> {
 ### Class: Standard Methods: Subtract
 ```
 class <namespace> {
-  <namespace> __subtact__ (<type> <variable_1>) {
+  <namespace> __subtact__ (<classname> <variable_1>) {
 
   }
 }
@@ -593,7 +603,7 @@ class <namespace> {
 ### Class: Standard Methods: Multiply
 ```
 class <namespace> {
-  <namespace> __multiply__ (<type> <variable_1>) {
+  <namespace> __multiply__ (<classname> <variable_1>) {
 
   }
 }
@@ -602,7 +612,7 @@ class <namespace> {
 ### Class: Standard Methods: Divide
 ```
 class <namespace> {
-  <namespace> __divide__ (<type> <variable_1>) {
+  <namespace> __divide__ (<classname> <variable_1>) {
 
   }
 }
@@ -611,7 +621,7 @@ class <namespace> {
 ### Class: Standard Methods: Modulo
 ```
 class <namespace> {
-  <namespace> __modulo__ (<type> <variable_1>) {
+  <namespace> __modulo__ (<classname> <variable_1>) {
 
   }
 }
@@ -629,7 +639,7 @@ class <namespace> {
 ### Class: Standard Methods: Equal
 ```
 class <namespace> {
-  <namespace> __equal__ (<type> <variable_1>) {
+  <namespace> __equal__ (<classname> <variable_1>) {
 
   }
 }
@@ -638,7 +648,7 @@ class <namespace> {
 ### Class: Standard Methods: Less
 ```
 class <namespace> {
-  <namespace> __less__ (<type> <variable_1>) {
+  <namespace> __less__ (<classname> <variable_1>) {
 
   }
 }
@@ -647,7 +657,7 @@ class <namespace> {
 ### Class: Standard Methods: Less Equal
 ```
 class <namespace> {
-  <namespace> __lessEqual__ (<type> <variable_1>) {
+  <namespace> __lessEqual__ (<classname> <variable_1>) {
 
   }
 }
@@ -656,7 +666,7 @@ class <namespace> {
 ### Class: Standard Methods: Greater
 ```
 class <namespace> {
-  <namespace> __greater__ (<type> <variable_1>) {
+  <namespace> __greater__ (<classname> <variable_1>) {
 
   }
 }
@@ -665,17 +675,17 @@ class <namespace> {
 ### Class: Standard Methods: Greater Equal
 ```
 class <namespace> {
-  <namespace> __greaterEqual__ (<type> <variable_1>) {
+  <namespace> __greaterEqual__ (<classname> <variable_1>) {
 
   }
 }
 ```
 
 ### Class: Standard Methods: To String
-Note that ``<type1>`` may be of any type that is an upgrade from ``text``.
+Note that ``<text>`` may be of any type that is an upgrade from ``text``.
 ```
 class <namespace> {
-  <type1> __modulo__ (<type2> <variable_1>) {
+  <text> __modulo__ () {
 
   }
 }
