@@ -4,6 +4,10 @@
 > * [Comment](#Comment)
 >   * [Single Line](#Comment-Single-Line)
 >   * [Multi Line](#Comment-Multi-Line)
+> * [Constants](#Constant)
+>   * [Integer](#Constant-Integer)
+>   * [Double](#Constant-Double)
+>   * [Text](#Constant-Text)
 > * [Function](#Function)
 >   * [Argument](#Function-Argument)
 >     * [Default](#Function-Argument-Default)
@@ -21,8 +25,8 @@
 >   * [Else statement](#If-Else)
 > * [Expression](#Expression)
 > * [Import](#Import)
->   * [Import As](#Import-As)
 >   * [Import Direct](#Import-Direct)
+>   * [Import As](#Import-As)
 > * [Expose](#Expose)
 > * [Class](#Class)
 >   * [Standard Methods](#Class-Standard-Methods)
@@ -63,6 +67,58 @@ This type of code comment will ignore everything from the start of a ``/*`` to a
 **Syntax**
 ```
 /* <text> */
+```
+
+
+# Constant
+Constants are assumed certain types based on their pattern. These types/patterns are described below
+
+## Constant: Boolean
+This constant is always resolved as if it is of a [boolean]() class.
+
+**Regex:**
+```regex
+/(false|true)/w
+```
+
+## Constant: Integer
+This constant is always resolved as if it is of a [i64]() class.
+
+**Regex:**
+```regex
+/([0-9]{0,})/w
+```
+
+## Constant: Double
+This constant is always resolved as if it is of a [f64]() class.
+
+**Regex:**
+```regex
+/([0-9]{1,})\.([0-9]{1,})/w
+```
+or
+```
+/([0-9]{1}\.[0-9]{1,})e(\+|\-)([0-9]{1,})/w
+```
+
+**Examples:**
+```qupa
+123.45
+1.2345e-2
+```
+
+## Constant: Text
+This constant will behave differently depending on which character you use to open and close it. If you use a single quote ``'``, then the constant data will be interpreted into a [string]() class. Otherwise if a ``"`` is used, then the data will interpreted into a [text]() class.  
+
+> Note that a [string]() behaves presuming each character is 1 byte long, while [text]() supports variable length characters, and thus UTF-8 support.
+
+**Regex:**
+```regex
+(")(.+)(?!\\")
+```
+or
+```regex
+(')(.+)(?!\\')
 ```
 
 
@@ -309,12 +365,39 @@ Address | ``@ <variable_name>`` | -
 Function calls (Synchronous) | [definition](#Function) | -
 
 # Import
+Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
 
-## Import: As
+The front end compiler is multiparse, thus it loads all required files and interprets all variable, function and class declarations before resolving any namespaces, or compiling any behvaiour. Thus importations can have circular references. i.e. ``A imports B; B imports C; C imports A`` 
+
+Also note that all import filepaths are relative to the current file.
 
 ## Import: Direct
+If a variable or function call cannot be resolved within the current file scope, the compiler will search within libraries imported into the current file scope.
+
+**Syntax**
+```
+import "<filepath>"
+```
+
+## Import: As
+All exposed namepsaces within the imported file are only accessible under the namespace provided.  
+**Example:**
+```qupa
+import "library.qp" as library
+library.HelloWorld();
+```
+
+**Syntax**
+```
+import "<filepath>" as <namespace>
+```
 
 # Expose
+Exposing a namespace allows the variable/function/class to be accessed when imported in another file. If a namespace is not exposed then it cannot be accessed on importation.
+
+```
+expose <namespace>
+```
 
 # Class
 
