@@ -154,9 +154,8 @@ The ``type_rtrn`` must be a classname accessible by the current scope.
 ## Function: Argument
 Function arguments must each have a type, and a name. Each argument must be delimetered by a ``,``, however there must not be a trailing ``,``.
 
-Type can be either a class name or an interface name. However if the type is filled with an interface name, then it must be marked as upgradable.
-
 **Syntax:**
+``type`` can be a classname, or an interface available at the current scope. If the type is an interface it must be marked [upgradable](#Function-Argument-Upgrade), otherwise a compilation error will occur, as an interface is not a vaild variable type.
 ```
 <type> <name>
 ```
@@ -241,9 +240,7 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 ## Function: Template
 > Implementation Beta
 
-Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the function arguments and body.
-
-``type`` can be any classname or interface available within the current scope. However it it is an interface it must be upgradable.
+Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the function arguments and body.
 
 Note that the brackets of the specifier must be before any modifiers. Multiple specifiers are seperated via commas.
 
@@ -509,7 +506,7 @@ class <namespace> extends <class> implements [ <interface1>, <interface2> ] {
 ## Class: Template
 This allows for dynamically generation of multiple versions of this class, each with customizeable structure and methods. This behaviour is very similar to [function templates](#Function-Template).
 
-Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the class body. ``type`` maybe a classname available within the current scope.
+Specifiers are declared similar to arguments - ``<type> <name>``, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the class body.
 
 When a class is defined in template form, the namespace itself assumes the form of an interface, which then all versions of the class generated then implement said interface, and extend the defined class if extend clause is present.
 
