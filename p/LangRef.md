@@ -29,7 +29,17 @@
 >   * [Import As](#Import-As)
 > * [Expose](#Expose)
 > * [Class](#Class)
+>   * [Variables](#Class-Variables)
+>   * [Functions](#Class-Functions)
+>   * [Attribute Modifier](#Class-Attribute-Modifier)
+>     * [Public](#Class-Attribute-Modifier-Public)
+>     * [Private](#Class-Attribute-Modifier-Private)
+>     * [Protected](#Class-Attribute-Modifier-Protected)
+>     * [Static](#Class-Attribute-Modifier-Static)
+>   * [Extends](#Class-Extends)
+>   * [Implements](#Class-Implements)
 >   * [Standard Methods](#Class-Standard-Methods)
+>     * [Init](#Class-Standard-Methods-Init)
 >     * [Add](#Class-Standard-Methods-Add)
 >     * [Subtract](#Class-Standard-Methods-Subtract)
 >     * [Multiply](#Class-Standard-Methods-Multiply)
@@ -108,9 +118,10 @@ or
 ```
 
 ## Constant: Text
-This constant will behave differently depending on which character you use to open and close it. If you use a single quote ``'``, then the constant data will be interpreted into a [string]() class. Otherwise if a ``"`` is used, then the data will interpreted into a [text]() class.  
+This constant will behave differently depending on which character you use to open and close it. If you use a single quote ``'``, then the constant data will be interpreted into a [string]() class. Otherwise if a ``"`` is used, then the data will interpreted into a [unicode]() class.  
 
-> Note that a [string]() behaves presuming each character is 1 byte long, while [text]() supports variable length characters, and thus UTF-8 support.
+> Note that a [string]() behaves presuming each character is 1 byte long, while [unicode]() supports variable length characters, and thus UTF-8 support.  
+> Both string and unicode implement the interface ``text``.
 
 **Regex:**
 ```regex
@@ -148,7 +159,7 @@ Function arguments must each have a type, and a name. Each argument must be deli
 ```
 
 ### Function: Argument: Default
-> Implmentation Stage: Beta/Release
+> Implementation Stage: Beta/Release
 
 Arguments may have a default value which it will posess if no value is specified at a call point. These values must be static constants, which are resolved at compile time.
 
@@ -158,7 +169,7 @@ Arguments may have a default value which it will posess if no value is specified
 ```
 
 ### Function: Argument: Upgrade
-> Implmentation Stage: Beta/Release
+> Implementation Stage: Beta/Release
 
 A function argument's type can be marked as upgradable, meaning this function can be produce multiple methods for instances where it is called and parsed a child type.  
 For instance if you have ``Student`` as an extended class of ``Person``, you may parse the student inplace of a ``Person`` argument.
@@ -179,12 +190,12 @@ void main () {
 ```
 
 ## Function: Method
-> Implmentation Stage Pre-Alpha
+> Implementation Stage Pre-Alpha
 
 There can be multiple definitions under the same function definition within the same namespace. Each instance using that function name is refered to as a method. Each method must have a unique function signature, or else a interpretation error will occur.
 
 ## Function: Modifier
-> Implmentation Stage Alpha
+> Implementation Stage Alpha
 
 Function modifiers are optional, however they change the compilation and execution behaviour of a function. Modifiers are listed by adding a ``:`` after the function name, then listing the modifiers afterwards. Note that multiple modifiers can be used via using a space `` `` as the deliminer.
 
@@ -196,7 +207,7 @@ Function modifiers are optional, however they change the compilation and executi
 ```
 
 ### Function: Modifier: Async
-> Implmentation Stage Alpha
+> Implementation Stage Alpha
 
 The ``async`` modifier specified this function will behave asynchnously. Meaning it can have delayed returns, interupted execution, and may continue execution due to cleanup or other listeners after returning. Further execution behaviour defined in [async](#Async).  
 
@@ -400,25 +411,274 @@ expose <namespace>
 ```
 
 # Class
+> Implementation Stage: Particial implementation by alpha, full implementation by release.
+
+Classes tie behaviour to data, and allow the accessing of class functions in scopes where the original class definition may not be available. It also allows for polymorphic programming, decreasing on duplicate code increasing project readability and maintainability.
+
+> Note that the name of classes can be used wherever ``<type>`` is used in a syntax outline within this document.
+
+**Syntax:**
+```
+class <namespace> {
+
+}
+```
+
+## Class: Variables
+Definining a variable within a class will define a class attribute
+
+**Syntax:**
+Same as variable [declaration](#Declare) however it must be within a class.
+
+## Class: Functions
+Defines a class method, within any non-static function the namespace ``this`` refers to a pointer which points to a class instance or a child class instance. (Includes children of children)
+
+**Syntax: Declaration**  
+Same as a normal [function](#Function) however it must be within a class block.
+
+**Syntax: Call**  
+Similar to [function](#Function) however the class instance must be specified. Note that this behaviour is changed when the function has the [static modifier](#Class-Attribute-Modifier-Static) applied to it. In that case `<class_instance>` should be replaced with the class' name.
+```
+<class_instance>.<function_name>( <argments> )
+```
+
+## Class: Attribute Modifier
+Class attribute modifiers maybe declared at anypoint with class scope (not within any function's scope). They will then apply to all attributes and functions below them. Note that public/private/protected override eachother's behaviour - while static's affects cannot be removed. Thus all static variables/attributes must be at the bottom of the class body.
+
+### Class: Attribute Modifier: Public
+This is the default state of all attributes/methods, which means they accessible by any class function, or any external function.
+
+### Class: Attribute Modifier: Private
+This means the attributes/methods may only be accessed by this class/interface, or any class which upgrades it.
+
+### Class: Attribute Modifier: Protected
+This means the attributes/methods can only be accessed by this class, and not any class which extends it.
+Note that if another instance of this class accessed by a method of this class, it can also access it's protected attributes.
+
+### Class: Attribute Modifier: Static
+This means there is only one instance of this method/attribute for all instances.
+
+Hence a static variable behaves similar to a global variable, however it may not be accessible by other methods/classes depedning what other modifiers are acting on it (public/private/protected).
+
+A static function behaves instead much more like a normal function, and does not possess a ``this`` variable within it's local scope. However it can still access any ``private``/``protected`` variables this class should have access to.
+
+
+## Class: Extends
+This will cause the new class to duplicate all of the attributes/methods from the exention class to this one. Note that in every case ``this`` will be upgraded to the new class type.  
+Also note that methods will not be copied if they are replaced within the new class.
+
+**Syntax:**  
+A class may only have one extention clause, the exention clause must be after the class name
+```
+class <namespace> extends <class> {
+  <body>
+}
+```
+
+## Class: Implmenents
+This defines that this class will implement all features (methods/attributes) that the interface specified has defined. If an attribute or function is not implemented within this class, that is declared within the interface the compiler will throw an error and will fail to compile.
+
+A single class can implement multiple interfaces, any interface that the class implements - this class will not be considered an upgrade of the interface.
+
+**Syntax:**  
+The implements clause must be after the class name, and after any extention.  
+```
+class <namespace> extends <class> implements <interface> {
+  <body>
+}
+```
+For multiple interfaces they must be surrounded by square brackets ``[]``, and there must be a comma after each interface
+```
+class <namespace> extends <class> implements [ <interface1>, <interface2> ] {
+  <body>
+}
+```
+
+## Class: Template
+This allows for dynamically generation of multiple versions of this class, each with customizeable structure and methods. This behaviour is very similar to [function templates](#Function-Template).
+
+Specifiers are declared similar to arguments - ``<type> <name>``, however all types are presumed [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a type/class name within the class body.
+
+When a class is defined in template form, the namespace itself assumes the form of an interface, which then all versions of the class generated then implement said interface, and extend the defined class if extend clause is present.
+
+**Syntax Definition:**  
+The specification must be defined before any [extends](#Class-Extends) or [implmenents](#Class-Implements) clauses and after the class' namespace.
+
+One class may have multiple specifiers via seperating them with a comma.
+```
+class <namespace>[<specifier>] {
+  <body>
+}
+```
+
+**Syntax Use:**
+Used in place of a ``<type>`` as seen in other syntax outlines.
+```
+<namespace>[<type>]
+```
 
 ## Class: Standard Methods
+Standard methods are methods used within [expressions](#Expression) to handle operators. These are not compulsory (except init), unless specified in an interface that is being implemented.  
+They also may have any modifiers on them unless specified otherwise.
+
+It is assumed that these methods return a new class instance, rather than altering the existing instance they were called upon. I.e. ``a.__add__(b)`` should not alter ``a`` but instead return a new value for the result.
+
+### Class: Standard Method: Init
+Init may **not** have the async specifier on it.
+```
+class <namespace> {
+  void __init__ (<attributes>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Get
+```
+class <namespace> {
+  <type> __get__ (<attributes>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Invert
+```
+class <namespace> {
+  <namespace> __invert__ () {
+
+  }
+}
+```
+
 ### Class: Standard Methods: And (boolean/set)
+```
+class <namespace> {
+  <namespace> __and__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Or (boolean/set)
+```
+class <namespace> {
+  <namespace> __or__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Add
+```
+class <namespace> {
+  <namespace> __add__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Subtract
+```
+class <namespace> {
+  <namespace> __subtact__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Multiply
+```
+class <namespace> {
+  <namespace> __multiply__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Divide
+```
+class <namespace> {
+  <namespace> __divide__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Modulo
+```
+class <namespace> {
+  <namespace> __modulo__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Valid
+```
+class <namespace> {
+  bool __modulo__ () {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Equal
+```
+class <namespace> {
+  <namespace> __equal__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Less
+```
+class <namespace> {
+  <namespace> __less__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Less Equal
+```
+class <namespace> {
+  <namespace> __lessEqual__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Greater
+```
+class <namespace> {
+  <namespace> __greater__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: Greater Equal
+```
+class <namespace> {
+  <namespace> __greaterEqual__ (<type> <variable_1>) {
+
+  }
+}
+```
+
 ### Class: Standard Methods: To String
+Note that ``<type1>`` may be of any type that is an upgrade from ``text``.
+```
+class <namespace> {
+  <type1> __modulo__ (<type2> <variable_1>) {
+
+  }
+}
+```
 
 # Interface
+> Note that the name of interfaces can be used wherever ``<type>`` is used in a syntax outline within this document.
 
 # Async
