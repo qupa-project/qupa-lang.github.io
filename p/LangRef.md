@@ -54,6 +54,8 @@
 >     * [To String](#Class-Standard-Methods-To-String)
 > * [Interface](#Interface)
 > * [Async](#Async)
+>   * [Then](#Async-Then)
+>   * [Await](#Async-Await)
 
 # Abstract
 # Introduction
@@ -373,7 +375,8 @@ Addition | ``<opperand> + <opperand> `` | Yes
 Subtraction | ``<opperand> - <opperand>`` | Yes
 Invert (aka Not) | ``! <opperand>`` | Yes
 Address | ``@ <variable_name>`` | -
-Function calls (Synchronous) | [definition](#Function) | -
+Function calls (Sync) | [definition](#Function) | -
+Function calls (Async) | [definition](#Async-Await) | -
 
 # Import
 Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
@@ -682,3 +685,33 @@ class <namespace> {
 > Note that the name of interfaces can be used wherever ``<type>`` is used in a syntax outline within this document.
 
 # Async
+A sync class declaration is defined in the [function outline](#Function-Modifier-Async). This segment outlines the change in execution behaviour and where async functions can and cannot be executed.
+
+An async function can only be executed normally within another async function. Async functions may have a large time delay between call and return, and also multiple other processes may take process within the current thread between call and return on an execution.
+
+## Async: Then
+> Implementation stage alpha
+
+The execution of a then clause occurs when function execution has finished.
+**Syntax:**
+```
+<namespace>(<attributes>) then {
+  <body>
+}
+```
+The return value can be written to a local varaible via the syntax below. Note until the return event occurs, no alterations will occur to this variable.
+```
+<namespace>(<attributes>) then -> <namespace2> {
+  <body>
+}
+```
+
+## Async: Await
+> Implementation stage beta
+
+This will pause the execution of the current method until the return of the called function. The result of which will then be parsed inline similar to the normal behaviour of function. Thus via the use of the await term async functions can be used within expressions.
+
+**Syntax:**
+```
+await <namespace>(<attributes>)
+```
