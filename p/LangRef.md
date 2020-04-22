@@ -63,6 +63,8 @@
 >   * [Await](#Async-Await)
 
 # Abstract
+This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline.md)
+
 # Introduction
 
 Note that spacing in the syntax examples are optional. As long as white space doesn't interfer with a string, or a namespace. White space is completely ignored.
