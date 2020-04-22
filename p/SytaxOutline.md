@@ -48,7 +48,8 @@ declare_assign_static | ```name_dotted name "=" constant```
 assign | ```name_dotted assign_oppr? "=" expression```
 assign_oppr | ```( "+" \| "-" \| "*" \| "/" )```
 **Expressions** |
-expr_opperand | ```name \| constant \| func_call_sync \| async_call```
+expression | ```expr_p5```
+expr_opperand | ```name \| constant \| func_call_sync \| async_call \| "(" expression ")"```
 expr_p1_invert | ```"!" expr_opperand```
 expr_p1_address | ```"@" name```
 expr_p2_add | ```expr_p2 "+" expr_p1```
