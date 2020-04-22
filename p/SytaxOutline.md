@@ -22,8 +22,8 @@ eol | ```"\n"```
 comment | ```"//" * eol```
 ~ | ```"/*" any* "*/"```
 **Namespace** | 
-letters | ```( "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" )```
-digit | ```( "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" )```
+letters | ```( "a" \| "b" \| "c" \| "d" \| "e" \| "f" \| "g" \| "h" \| "i" \| "j" \| "k" \| "l" \| "m" \| "n" \| "o" \| "p" \| "q" \| "r" \| "s" \| "t" \| "u" \| "v" \| "w" \| "x" \| "y" \| "z" \| "A" \| "B" \| "C" \| "D" \| "E" \| "F" \| "G" \| "H" \| "I" \| "J" \| "K" \| "L" \| "M" \| "N" \| "O" \| "P" \| "Q" \| "R" \| "S" \| "T" \| "U" \| "V" \| "W" \| "X" \| "Y" \| "Z" )```
+digit | ```( "0" \| "1" \| "2" \| "3" \| "4" \| "5" \| "6" \| "7" \| "8" \| "9" )```
 name | ```( letters \| "_" )+ ( letters \| digit \| "_" )+ ```
 name_dotted | ```( letters \| "_" \| "." \| "->" )+ ( letters \| digit \| "_" \| "." \| "->" )+```
 **Constants** | 
@@ -72,8 +72,8 @@ expr_p3 | ```expr_p3_multiply \| expr_p3_divide \| expr_p2```
 expr_p4 | ```expr_p4_modulus \| expr_p3```
 expr_p5 | ```expr_p5_and \| expr_p5_or \| expr_p4```
 **Loop** |
-loop | ```( loop_for | loop_while )```
-loop_for | ```"for" "(" ( assign | declare_assign ) ";" expression ";" assign ( "," assign )* ")" "{" func_body "}"```
+loop | ```( loop_for \| loop_while )```
+loop_for | ```"for" "(" ( assign \| declare_assign ) ";" expression ";" assign ( "," assign )* ")" "{" func_body "}"```
 loop_while | ```while "(" expression ")" "{" func_body "}"```
 **If Statement** |
 if_stmt | ```if_block elif_block* else_block?```
