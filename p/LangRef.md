@@ -368,21 +368,21 @@ if (false) {
 # Expression
 Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).  
 
-The order of operations are (from last executed to first);  
-| Operation | Syntax | Class Standard Method |
-|:-|:-|:-|
-Brackets | ``( <expr> )`` | -
-Add (boolean/set) | ``<opperand> && <opperand>`` | Yes
-Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
-Modulus | ``<opperand> % <opperand>`` | Yes
-Multiplication | ``<opperand> * <opperand>`` | Yes
-Division | ``<opperand> / <opperand>`` | Yes
-Addition | ``<opperand> + <opperand> `` | Yes
-Subtraction | ``<opperand> - <opperand>`` | Yes
-Invert (aka Not) | ``! <opperand>`` | Yes
-Address | ``@ <variable_name>`` | -
-Function calls (Sync) | [definition](#Function) | -
-Function calls (Async) | [definition](#Async-Await) | -
+The order of operations are (from first executed to last);  
+| Precedence | Operation | Syntax | Class Standard Method |
+|:-|:-|:-|:-|
+1 | Invert (aka Not) | ``! <opperand>`` | Yes
+1 | Address | ``@ <variable_name>`` | -
+2 | Addition | ``<opperand> + <opperand> `` | Yes
+3 | Subtraction | ``<opperand> - <opperand>`` | Yes
+4 | Multiplication | ``<opperand> * <opperand>`` | Yes
+4 | Division | ``<opperand> / <opperand>`` | Yes
+5 | Modulus | ``<opperand> % <opperand>`` | Yes
+6 | Add (boolean/set) | ``<opperand> && <opperand>`` | Yes
+6 | Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
+7 | Function calls (Async) | [definition](#Async-Await) | -
+7 | Function calls (Sync) | [definition](#Function) | -
+8 | Brackets | ``( <expr> )`` | -
 
 # Import
 Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
@@ -457,12 +457,33 @@ Class attribute modifiers maybe declared at anypoint with class scope (not withi
 ### Class: Attribute Modifier: Public
 This is the default state of all attributes/methods, which means they accessible by any class function, or any external function.
 
+**Syntax**
+```
+class <namespace> {
+  public:
+}
+```
+
 ### Class: Attribute Modifier: Private
 This means the attributes/methods may only be accessed by this class/interface, or any class which upgrades it.
+
+**Syntax**
+```
+class <namespace> {
+  private:
+}
+```
 
 ### Class: Attribute Modifier: Protected
 This means the attributes/methods can only be accessed by this class, and not any class which extends it.
 Note that if another instance of this class accessed by a method of this class, it can also access it's protected attributes.
+
+**Syntax**
+```
+class <namespace> {
+  protected:
+}
+```
 
 ### Class: Attribute Modifier: Static
 This means there is only one instance of this method/attribute for all instances.
@@ -470,6 +491,13 @@ This means there is only one instance of this method/attribute for all instances
 Hence a static variable behaves similar to a global variable, however it may not be accessible by other methods/classes depedning what other modifiers are acting on it (public/private/protected).
 
 A static function behaves instead much more like a normal function, and does not possess a ``this`` variable within it's local scope. However it can still access any ``private``/``protected`` variables this class should have access to.
+
+**Syntax**
+```
+class <namespace> {
+  static:
+}
+```
 
 
 ## Class: Extends
