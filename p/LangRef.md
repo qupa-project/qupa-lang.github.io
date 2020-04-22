@@ -23,6 +23,9 @@
 > * [If statement](#If-statement)
 >   * [Elif statement](#If-Elif)
 >   * [Else statement](#If-Else)
+> * [Loop](#Loop)
+>   * [For](#Loop-For)
+>   * [White](#Loop-While)
 > * [Expression](#Expression)
 > * [Import](#Import)
 >   * [Import Direct](#Import-Direct)
@@ -365,6 +368,10 @@ if (false) {
 }
 ```
 
+# Loop
+## Loop: For
+## Loop: While
+
 # Expression
 Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).  
 
@@ -374,15 +381,15 @@ The order of operations are (from first executed to last);
 1 | Invert (aka Not) | ``! <opperand>`` | Yes
 1 | Address | ``@ <variable_name>`` | -
 2 | Addition | ``<opperand> + <opperand> `` | Yes
-3 | Subtraction | ``<opperand> - <opperand>`` | Yes
-4 | Multiplication | ``<opperand> * <opperand>`` | Yes
-4 | Division | ``<opperand> / <opperand>`` | Yes
-5 | Modulus | ``<opperand> % <opperand>`` | Yes
-6 | Add (boolean/set) | ``<opperand> && <opperand>`` | Yes
-6 | Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
-7 | Function calls (Async) | [definition](#Async-Await) | -
-7 | Function calls (Sync) | [definition](#Function) | -
-8 | Brackets | ``( <expr> )`` | -
+2 | Subtraction | ``<opperand> - <opperand>`` | Yes
+3 | Multiplication | ``<opperand> * <opperand>`` | Yes
+3 | Division | ``<opperand> / <opperand>`` | Yes
+4 | Modulus | ``<opperand> % <opperand>`` | Yes
+5 | And (boolean/set) | ``<opperand> && <opperand>`` | Yes
+5 | Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
+6 | Function calls (Async) | [definition](#Async-Await) | -
+6 | Function calls (Sync) | [definition](#Function) | -
+7 | Brackets | ``( <expr> )`` | -
 
 # Import
 Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
