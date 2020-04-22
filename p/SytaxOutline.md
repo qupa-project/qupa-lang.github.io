@@ -1,15 +1,6 @@
 ## Forammting
 The table above is a hybrid of [Regular Extensions to BNF](http://matt.might.net/articles/grammars-bnf-ebnf/) to be more easily readable. If the term in a table row is ``-`` then it means it is a variant of the above term.
 
-<!-- ## Recursion
-Note there are some variations, i.e. anything inside ``{ }`` can be repeated one to many times, thus to have zero to many behaviour you must do ``[{ }]``.
-
-## Grouping
-Round brackets ``( )`` are used to indicate precendece
-
-## Logic
-The pipe ``|`` is used to state one or the other, but not both. -->
-
 ## Literals
 Anything within double quotes ``" "`` means the literal character should be used. Note that ``\"`` means use the literal ``"`` rather than exiting the literal statement.
 
@@ -56,8 +47,7 @@ declare_assign | ```name_dotted name "=" expression```
 declare_assign_static | ```name_dotted name "=" constant```
 assign | ```name_dotted assign_oppr? "=" expression```
 assign_oppr | ```( "+" \| "-" \| "*" \| "/" )```
-
-**Expressions** | *needs rework to account for precedence*
+**Expressions** |
 expr_opperand | ```name \| constant \| func_call_sync \| async_call```
 expr_p1_invert | ```"!" expr_opperand```
 expr_p1_address | ```"@" name```
