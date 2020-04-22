@@ -20,7 +20,7 @@ Anything within double quotes ``" "`` means the literal character should be used
 any | consume all characters until next requirement is reached
 eol | ```"\n"```
 comment | ```"//" * eol```
-- | ```"/*" any* "*/"```
+~ | ```"/*" any* "*/"```
 **Namespace** | 
 name | ```( ( A-z | "_" )+ ( A-z | 0-9 | "_")+ )```
 name_dotted | ```( ( A-z | "_" | "." | "->" )+ ( A-z | 0-9 | "_" | "." | "->" )+ )```
@@ -29,9 +29,9 @@ constant | ```( bool | int | double | text )```
 bool | ```( "true" | "false" )```
 int | ```digit+```
 double | ```digit+ "." digit+```
-- | ```digit+ "." digit+ "e" digit+```
+~ | ```digit+ "." digit+ "e" digit+```
 text | ```"\"" any* "\""```
- - | ```"'" any* "'"```
+~ | ```"'" any* "'"```
 **Template** |
 template | ```"[" template_argument ("," template_argument)* "]"``` 
 template_argument | ```"^" name_dotted name```
@@ -55,7 +55,7 @@ declare_assign_static | ```name_dotted name "=" constant```
 assign | ```name_dotted "=" expression```
 **Expressions** | *needs rework to account for precedence*
 expression | ```opperand ( opperator opperand )*```
-- | ```opperand_mutate expression```
+~ | ```opperand_mutate expression```
 opperator | ```( "&&" | "||" | "%" | "*" | "/" | "+" | "-")```
 opperand_mutate | ```( "!" | "@" )```
 opperand | ```( func_call_sync | async_await | name_dotted | constant | ( "(" expression ")" ) )```
