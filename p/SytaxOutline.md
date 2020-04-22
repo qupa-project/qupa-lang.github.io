@@ -54,7 +54,9 @@ class_body | ```(function \| declare \| declare_assign_static \| class_modifier)
 declare | ```name_dotted name```
 declare_assign | ```name_dotted name "=" expression```
 declare_assign_static | ```name_dotted name "=" constant```
-assign | ```name_dotted "=" expression```
+assign | ```name_dotted assign_oppr? "=" expression```
+assign_oppr | ```( "+" \| "-" \| "*" \| "/" )```
+
 **Expressions** | *needs rework to account for precedence*
 expr_opperand | ```name \| constant \| func_call_sync \| async_call```
 expr_p1_invert | ```"!" expr_opperand```
