@@ -42,7 +42,7 @@ function | ```name_dotted name template? ( ":" func_mod+ )? "(" arguments ")" "{
 arguments | ```argument ("," argument)*```
 argument | ```("^")? name name ( "=" constant )?```
 func_call_sync | ```name_dotted "(" ( expression ( "," expression )* )? ")" ```
-func_body | ```(declare \| declare assign \| func_call_sync \| async_call \| if_stmt \| loop)*```
+func_body | ```(declare \| declare assign \| func_call_sync \| async_call \| if_stmt \| loop \| loop_cont \| look_break)*```
 **Async** | 
 async_call | ```name_dotted "(" expression ( "," expression )* ")" "then" "->" name_dotted "{" func_body "}"```
 async_await | ```"await" name_dotted "(" expression ( "," expression )* ")"```
@@ -73,8 +73,13 @@ expr_p4 | ```expr_p4_modulus \| expr_p3```
 expr_p5 | ```expr_p5_and \| expr_p5_or \| expr_p4```
 **Loop** |
 loop | ```( loop_for \| loop_while )```
-loop_for | ```"for" "(" ( assign \| declare_assign ) ";" expression ";" assign ( "," assign )* ")" "{" func_body "}"```
-loop_while | ```while "(" expression ")" "{" func_body "}"```
+loop_for | ```loop_lable? "for" "(" for_loop_init ";" expression ";" loop_for_ittr ")" "{" func_body "}"```
+loop_lable | ```name ":"```
+loop_for_init | ```( assign \| declare_assign) ( "," ( assign \| declare_assign ) )?```
+loop_for_ittr | ```assign ( "," assign )*```
+loop_while | ```loop_lable? while "(" expression ")" "{" func_body "}"```
+loop_cont | ```"continue" name?```
+loop_break | ```"break" name?```
 **If Statement** |
 if_stmt | ```if_block elif_block* else_block?```
 if_block | ```"if" "(" expression ")" "{" func_body "}"```
