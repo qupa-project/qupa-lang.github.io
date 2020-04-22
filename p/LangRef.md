@@ -26,6 +26,8 @@
 > * [Loop](#Loop)
 >   * [For](#Loop-For)
 >   * [White](#Loop-While)
+>   * [Break](#Loop-Break)
+>   * [Continue](#Loop-Continue)
 > * [Expression](#Expression)
 > * [Import](#Import)
 >   * [Import Direct](#Import-Direct)
@@ -369,8 +371,59 @@ if (false) {
 ```
 
 # Loop
+A loop repeats the ``body`` until the condition fails. The ``condition`` is an expression which resolves an [expression](#Expression) and then checks [validity](#Class-Standard-Methods-Valid), this is tested before the execution of each loop.
+
 ## Loop: For
+When a for loop starts will will first execute any ``init`` cases, it will then test the ``condition``, from there it will repeatedly execute ``condition -> body -> itterate`` until condition fails, which will then execute the program continuing after the for loop.
+
+``init`` can obtain any [assignment](#Assign), and multiple assignments can occur within this segment via seperating them with a comma. E.g. ``i=0, j=1``
+
+``itterate`` this behaves similarly to ``init``, however it executes each time the loop repeats, this can be triggered by reaching the end of the loop or a [continue](#Loop-Continue) statement. E.g. ``i += 1, j += 2``
+
+```
+for (<init>; <condition>; <itterate>) {
+  <body>
+}
+```
+```
+<lable>: for (<init>; <condition>; <itterate>) {
+  <body>
+}
+```
 ## Loop: While
+**Syntax:**
+```
+while (<condition>) {
+  <body>
+}
+```
+```
+<lable>: while (<condition>) {
+  <body>
+}
+```
+
+## Loop: Break
+This is immediatly (itterate will not execute) exit the loop block specified. If no block is specified then it exists the current depth loop. Otherwise the loop of which will be exited can be specified via the optional term ``<lable>``.
+
+**Syntax:**
+```
+break
+```
+```
+break <lable>
+```
+
+## Loop: Continue
+This will jump straight to the itteration process to continue another loop. If no ``<lable>`` is specified then the continue will apply to the current loop.
+**Syntax:**
+```
+continue
+```
+```
+continue <lable>
+```
+
 
 # Expression
 Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).  
