@@ -22,8 +22,8 @@ eol | ```"\n"```
 comment | ```"//" * eol```
 ~ | ```"/*" any* "*/"```
 **Namespace** | 
-name | ```( ( A-z | "_" )+ ( A-z | 0-9 | "_")+ )```
-name_dotted | ```( ( A-z | "_" | "." | "->" )+ ( A-z | 0-9 | "_" | "." | "->" )+ )```
+name | ```( ( A-z \| "_" )+ ( A-z \| 0-9 \| "_")+ )```
+name_dotted | ```( ( A-z \| "_" \| "." \| "->" )+ ( A-z | 0-9 | "_" | "." | "->" )+ )```
 **Constants** | 
 constant | ```( bool | int | double | text )```
 bool | ```( "true" | "false" )```
