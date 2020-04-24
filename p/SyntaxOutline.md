@@ -57,13 +57,18 @@ expr_p2_subtract | ```expr_p2 "-" expr_p1```
 expr_p3_multiply | ```expr_p3 "*" expr_p2```
 expr_p3_divide | ```expr_p3 "/" expr_p2```
 expr_p4_modulus | ```expr_p4 "%" expr_p3```
-expr_p5_and | ```expr_p5 "&&" expr_p4```
-expr_p5_or | ```expr_p5 "\|\|" expr_p4```
+expr_p5_gtr_eq | ```expr_p5 ">=" expr_4```
+expr_p5_gtr | ```expr_p5 ">" expr_4```
+expr_p5_lss_eq | ```expr_p5 "<=" expr_4```
+expr_p5_lss | ```expr_p5 "<" expr_4```
+expr_p6_and | ```expr_p6 "&&" expr_p5```
+expr_p6_or | ```expr_p6 "\|\|" expr_p5```
 expr_p1 | ```expr_p1_invert \| expr_p1_address \| expr_opperand ```
 expr_p2 | ```expr_p2_add \| expr_p2_subtract \| expr_p1```
 expr_p3 | ```expr_p3_multiply \| expr_p3_divide \| expr_p2```
 expr_p4 | ```expr_p4_modulus \| expr_p3```
-expr_p5 | ```expr_p5_and \| expr_p5_or \| expr_p4```
+expr_p5 | ```expr_p5_gtr_eq \| expr_p5_gtr \| expr_p5_lss_eq \| expr_p5_lss \| expr_p4```
+expr_p6 | ```expr_p6_and \| expr_p6_or \| expr_p5```
 **Loop** |
 loop | ```( loop_for \| loop_while )```
 loop_for | ```loop_lable? "for" "(" for_loop_init ";" expression ";" loop_for_ittr ")" "{" func_body "}"```

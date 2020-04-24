@@ -440,11 +440,15 @@ The order of operations are (from first executed to last);
 3 | Multiplication | ``<opperand> * <opperand>`` | Yes
 3 | Division | ``<opperand> / <opperand>`` | Yes
 4 | Modulus | ``<opperand> % <opperand>`` | Yes
-5 | And (boolean/set) | ``<opperand> && <opperand>`` | Yes
-5 | Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
-6 | Function calls (Async) | [definition](#Async-Await) | -
-6 | Function calls (Sync) | [definition](#Function) | -
-7 | Brackets | ``( <expr> )`` | -
+5 | Greater or Equal | `` <opperand> >= <operand>`` | Yes
+5 | Greater Than | `` <opperand> > <operand>`` | Yes
+5 | Less or Equal | `` <opperand> <= <operand>`` | Yes
+5 | Less Than | `` <opperand> < <operand>`` | Yes
+6 | And (boolean/set) | ``<opperand> && <opperand>`` | Yes
+6 | Or (boolean/set) | ```<opperand> \|\| <opperand>``` | Yes
+7 | Function calls (Async) | [definition](#Async-Await) | -
+7 | Function calls (Sync) | [definition](#Function) | -
+8 | Brackets | ``( <expr> )`` | -
 
 # Import
 Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
