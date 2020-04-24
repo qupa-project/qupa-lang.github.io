@@ -43,9 +43,9 @@ class_modifier | ```("public:" \| "private:" \| "protected:" \| "static:")```
 class_body | ```(function \| declare \| declare_assign_static \| class_modifier)*```
 **Variables** |
 declare | ```name_dotted name```
-declare_assign | ```name_dotted name "=" expression```
-declare_assign_static | ```name_dotted name "=" constant```
-assign | ```name_dotted assign_oppr? "=" expression```
+declare_assign | ```name_dotted name "=" expression ";"```
+declare_assign_static | ```name_dotted name "=" constant ";"```
+assign | ```name_dotted assign_oppr? "=" expression ";"```
 assign_oppr | ```( "+" \| "-" \| "*" \| "/" )```
 **Expressions** |
 expression | ```expr_p5```
