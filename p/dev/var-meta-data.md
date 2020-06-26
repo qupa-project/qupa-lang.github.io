@@ -34,14 +34,14 @@ i32[]: [ order.LE ] sort(i32[] arr) {
 ## Sorting: Using our flags
 To define a function as needing a certain value to be sorted, we can simply define the argument as requiring the flag ``order.LE``.
 ```
-void print_ordered( Container<i32> arr: [ order.LE ] ) {
+void print_ordered( Container[i32] arr: [ order.LE ] ) {
 	// do something with the ordered data
 }
 ```
 
 Now say we are given a reference to a value - at first we know that there is no way to know if the array is sorted. Hence we cannot parse the reference value to any function that requires a sorted array. However once we run a sort on the value, we know until the variable is next mutated those flags will hold true.
 ```qupa
-void do_something(Reference<Container> arrPtr) {
+void do_something(Reference[Container] arrPtr) {
 	with ( arrPtr ) { // locks the mutability of the poiner
 		arrPtr->sort(); // the compiler now knows that the side effect of this is that
 		                // arrPtr is now sorted smallest to largest
