@@ -1,6 +1,15 @@
 # Compile time-resolved variable metadata
 This can be a useful feature to reduce the number of run-time checks needed and allows for developers to implement programs which can then throw compile-time type errors instead of what would normally be a run time issue.
 
+> **Index:**
+> * [Example 1: Sorting](#Example-1-Sorting)
+> 	* [Defining and Assigning our flags](#Sorting-Defining-and-Assigning-our-flags)
+> 	* [Using our flags](#Sorting-Using-our-flags)
+> * [Example 2: Mutex protected references](#Example-2-Mutex-protected-references)
+> 	* [Implementing Mutex](#Protected-References-Implementing-Mutex)
+> 	* [Protected References: Implementing References](#Protected-References-Implementing-References)
+> * [Summary](#Summary)
+
 Note that none of the syntax below is confirmed, and should be purely viewed as pseudo-code in the current state.
 
 # Example 1: Sorting
@@ -24,7 +33,8 @@ class Container {
 ```
 Alternatively, for a non-mutating sort, you can specify that the return type will have the flag ``order.LE``
 ```qupa
-i32[]: [ order.LE ] sort(i32[] arr) {
+i32[] sort(i32[] arr) {
+	affect flag return [ order.LE ]
 
 	// sort the data
 	return arr;
@@ -89,9 +99,9 @@ class Mutex {
 			affect flag this mut_state = unknown;
 			affect means {
 				case true:
-					means flag this mut_state = locked;
+					flag this mut_state = locked;
 				case false:
-					means flag this mut_state = unknown;
+					flag this mut_state = unknown;
 			}
 
 			// Attempt atomic lock
@@ -204,4 +214,4 @@ with (ref) {
 # Summary
 * Flags can be used to define certain compile-time pre-requisites which can then reduce the number of runtime errors by introducing new possible compile-time errors.
 * All flags are dropped when a value is mutated (values return to default values).  
-*The compiler can determine if any function mutates a given variable either directly or by proxy (if it calls another function that mutates the value). Hence when a function is called on a reference which mutates a variable, or if a variable is reassigned this point activates.*
+  *The compiler can determine if any function mutates a given variable either directly or by proxy (if it calls another function that mutates the value). Hence when a function is called on a reference which mutates a variable, or if a variable is reassigned this point activates.*
