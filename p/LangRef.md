@@ -71,7 +71,7 @@ The detailed outline on Qupa's syntax
 >   * [Await](#Async-Await)
 
 # Abstract
-This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline)
+This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline.html)
 
 # Introduction
 
