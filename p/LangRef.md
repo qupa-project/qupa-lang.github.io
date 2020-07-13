@@ -1,6 +1,7 @@
 Title: Language Reference
 Date: 13/07/2020
 Tags: Specification
+Related: ./SyntaxOutline.html
 ---
 The detailed outline on Qupa's syntax
 ---
@@ -70,7 +71,7 @@ The detailed outline on Qupa's syntax
 >   * [Await](#Async-Await)
 
 # Abstract
-This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline.md)
+This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline)
 
 # Introduction
 
@@ -80,7 +81,7 @@ Note that spacing in the syntax examples are optional. As long as white space do
 Comments are sections of code which are purely for the aid of the programmer, and are ignored at the interpretation stage.
 
 ## Comment: Single line
-This type of code comment will ignore everything from the start of a ``//`` to a new line character.
+This type of code comment will ignore everything from the start of a `//` to a new line character.
 
 **Syntax**
 ```
@@ -88,7 +89,7 @@ This type of code comment will ignore everything from the start of a ``//`` to a
 ```
 
 ## Comment: Multi Line
-This type of code comment will ignore everything from the start of a ``/*`` to a ``*/`` this can span multiple lines.
+This type of code comment will ignore everything from the start of a `/*` to a `*/` this can span multiple lines.
 
 **Syntax**
 ```
@@ -134,10 +135,10 @@ or
 ```
 
 ## Constant: Text
-This constant will behave differently depending on which character you use to open and close it. If you use a single quote ``'``, then the constant data will be interpreted into a [string]() class. Otherwise if a ``"`` is used, then the data will interpreted into a [unicode]() class.  
+This constant will behave differently depending on which character you use to open and close it. If you use a single quote `'`, then the constant data will be interpreted into a [string]() class. Otherwise if a `"` is used, then the data will interpreted into a [unicode]() class.  
 
 > Note that a [string]() behaves presuming each character is 1 byte long, while [unicode]() supports variable length characters, and thus UTF-8 support.  
-> Both string and unicode implement the interface ``text``.
+> Both string and unicode implement the interface `text`.
 
 **Regex:**
 ```regex
@@ -152,7 +153,7 @@ or
 # Function
 Functions are defined with a static return type, with zero to many function arguments. A function may only return once, attempting to return more than once will result in a runtime error.
 
-The ``type_rtrn`` must be a classname accessible by the current scope.
+The `type_rtrn` must be a classname accessible by the current scope.
 
 **Syntax Definition:**
 ```
@@ -166,10 +167,10 @@ The ``type_rtrn`` must be a classname accessible by the current scope.
 ```
 
 ## Function: Argument
-Function arguments must each have a type, and a name. Each argument must be delimetered by a ``,``, however there must not be a trailing ``,``.
+Function arguments must each have a type, and a name. Each argument must be delimetered by a `,`, however there must not be a trailing `,`.
 
 **Syntax:**
-``type`` can be a classname, or an interface available at the current scope. If the type is an interface it must be marked [upgradable](#Function-Argument-Upgrade), otherwise a compilation error will occur, as an interface is not a vaild variable type.
+`type` can be a classname, or an interface available at the current scope. If the type is an interface it must be marked [upgradable](#Function-Argument-Upgrade), otherwise a compilation error will occur, as an interface is not a vaild variable type.
 ```
 <type> <name>
 ```
@@ -191,7 +192,7 @@ Arguments may have a default value which it will posess if no value is specified
 > Implementation Stage: Beta/Release
 
 A function argument's type can be marked as upgradable, meaning this function can be produce multiple methods for instances where it is called and parsed a child type.  
-For instance if you have ``Student`` as an extended class of ``Person``, you may parse the student inplace of a ``Person`` argument.
+For instance if you have `Student` as an extended class of `Person`, you may parse the student inplace of a `Person` argument.
 ```qupa
 void SayHi (^Person person) {
   person.say("Hi")
@@ -216,7 +217,7 @@ There can be multiple definitions under the same function definition within the 
 ## Function: Modifier
 > Implementation Stage Alpha
 
-Function modifiers are optional, however they change the compilation and execution behaviour of a function. Modifiers are listed by adding a ``:`` after the function name, then listing the modifiers afterwards. Note that multiple modifiers can be used via using a space `` `` as the deliminer.
+Function modifiers are optional, however they change the compilation and execution behaviour of a function. Modifiers are listed by adding a `:` after the function name, then listing the modifiers afterwards. Note that multiple modifiers can be used via using a space ` ` as the deliminer.
 
 **Syntax**
 ```
@@ -228,9 +229,9 @@ Function modifiers are optional, however they change the compilation and executi
 ### Function: Modifier: Async
 > Implementation Stage Alpha
 
-The ``async`` modifier specified this function will behave asynchnously. Meaning it can have delayed returns, interupted execution, and may continue execution due to cleanup or other listeners after returning. Further execution behaviour defined in [async](#Async).  
+The `async` modifier specified this function will behave asynchnously. Meaning it can have delayed returns, interupted execution, and may continue execution due to cleanup or other listeners after returning. Further execution behaviour defined in [async](#Async).  
 
-Note that the async modifier cannot be used at the same time as the ``inline`` modifier.
+Note that the async modifier cannot be used at the same time as the `inline` modifier.
 
 **Syntax:**
 ```
@@ -242,7 +243,7 @@ Note that the async modifier cannot be used at the same time as the ``inline`` m
 ### Function: Modifier: inline
 > Implementation Release
 
-The ``inline`` deliminer specifies to the compiler to embed the behaviour of this function at the place of calling.
+The `inline` deliminer specifies to the compiler to embed the behaviour of this function at the place of calling.
 
 **Syntax:**
 ```
@@ -254,7 +255,7 @@ The ``inline`` deliminer specifies to the compiler to embed the behaviour of thi
 ## Function: Template
 > Implementation Beta
 
-Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - ``<type> <name>``, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the function arguments and body.
+Allows the compile time generation of methods for this function based syntax input. Specifiers are declared similar to arguments - `<type> <name>`, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the function arguments and body.
 
 Note that the brackets of the specifier must be before any modifiers. Multiple specifiers are seperated via commas.
 
@@ -282,7 +283,7 @@ Note that the brackets of the specifier must be before any modifiers. Multiple s
 Variable can be defined in two scopes: global; and function. All definitions are raised to the top of the current scope. Thus if defining a varaible at any point within a function would be have the same as defining it at the beginning of the function.
 
 **Syntax:**
-``type`` must be a classname accessible to the current scope.
+`type` must be a classname accessible to the current scope.
 ```
 <type> <name>
 ```
@@ -308,7 +309,7 @@ Short form
 <name> <opper>= <expr>;
 ```
 
-Operations that the short form can be applied to; ``+``, ``-``, ``*``, ``/``
+Operations that the short form can be applied to; `+`, `-`, `*`, `/`
 
 **Examples:**
 ```qupa
@@ -325,9 +326,9 @@ number /= a;
 ```
 
 # If statement
-The [expression](#Expression) will be resolved according to the [expression](#Expression) definition, then the resulting value will have it's [class validity check](#Class-standard-methods-valid) ran. If the result is true, then the ``<body>`` code content will execute.
+The [expression](#Expression) will be resolved according to the [expression](#Expression) definition, then the resulting value will have it's [class validity check](#Class-standard-methods-valid) ran. If the result is true, then the `<body>` code content will execute.
 
-After execution of the ``if`` clause execution will continue after the last chain of the ``if`` statement. Be that the last ``elif`` clause, or the last ``else`` clause.
+After execution of the `if` clause execution will continue after the last chain of the `if` statement. Be that the last `elif` clause, or the last `else` clause.
 
 **Syntax:**
 ```
@@ -336,9 +337,9 @@ if ( <expr> ) {
 }
 ```
 ## If: Elif
-These statement can be continued off of other [if statements](#If-Statement) and other [elif statements](#IF-Elif), however it cannot exist anywhere else. This behaves similarly to an ``if`` statement, however it will only execute if the previous ``if`` and ``elif`` statement's conditions fail.
+These statement can be continued off of other [if statements](#If-Statement) and other [elif statements](#IF-Elif), however it cannot exist anywhere else. This behaves similarly to an `if` statement, however it will only execute if the previous `if` and `elif` statement's conditions fail.
 
-After execution of the ``elif`` clause execution will continue after the last chain of the ``if`` statement. Be that the last ``elif`` clause, or the last ``else`` clause.
+After execution of the `elif` clause execution will continue after the last chain of the `if` statement. Be that the last `elif` clause, or the last `else` clause.
 
 **Syntax:**
 ```
@@ -359,7 +360,7 @@ if (false) {
 ## If: Else
 This statement can be continued off of any [if statements](#If-Statement) or [elif statements](#IF-Elif), and will only execute the body code if the previous statement's conditions fail.
 
-After execution of the ``else`` clause executione will continue after it's closing bracket.
+After execution of the `else` clause executione will continue after it's closing bracket.
 
 **Syntax:**
 ```
@@ -380,14 +381,14 @@ if (false) {
 ```
 
 # Loop
-A loop repeats the ``body`` until the condition fails. The ``condition`` is an expression which resolves an [expression](#Expression) and then checks [validity](#Class-Standard-Methods-Valid), this is tested before the execution of each loop.
+A loop repeats the `body` until the condition fails. The `condition` is an expression which resolves an [expression](#Expression) and then checks [validity](#Class-Standard-Methods-Valid), this is tested before the execution of each loop.
 
 ## Loop: For
-When a for loop starts will will first execute any ``init`` cases, it will then test the ``condition``, from there it will repeatedly execute ``condition -> body -> itterate`` until condition fails, which will then execute the program continuing after the for loop.
+When a for loop starts will will first execute any `init` cases, it will then test the `condition`, from there it will repeatedly execute `condition -> body -> itterate` until condition fails, which will then execute the program continuing after the for loop.
 
-``init`` can obtain any [assignment](#Assign), and multiple assignments can occur within this segment via seperating them with a comma. E.g. ``i=0, j=1``
+`init` can obtain any [assignment](#Assign), and multiple assignments can occur within this segment via seperating them with a comma. E.g. `i=0, j=1`
 
-``itterate`` this behaves similarly to ``init``, however it executes each time the loop repeats, this can be triggered by reaching the end of the loop or a [continue](#Loop-Continue) statement. E.g. ``i += 1, j += 2``
+`itterate` this behaves similarly to `init`, however it executes each time the loop repeats, this can be triggered by reaching the end of the loop or a [continue](#Loop-Continue) statement. E.g. `i += 1, j += 2`
 
 ```
 for (<init>; <condition>; <itterate>) {
@@ -413,7 +414,7 @@ while (<condition>) {
 ```
 
 ## Loop: Break
-This is immediatly (itterate will not execute) exit the loop block specified. If no block is specified then it exists the current depth loop. Otherwise the loop of which will be exited can be specified via the optional term ``<lable>``.
+This is immediatly (itterate will not execute) exit the loop block specified. If no block is specified then it exists the current depth loop. Otherwise the loop of which will be exited can be specified via the optional term `<lable>`.
 
 **Syntax:**
 ```
@@ -424,7 +425,7 @@ break <lable>
 ```
 
 ## Loop: Continue
-This will jump straight to the itteration process to continue another loop. If no ``<lable>`` is specified then the continue will apply to the current loop.
+This will jump straight to the itteration process to continue another loop. If no `<lable>` is specified then the continue will apply to the current loop.
 **Syntax:**
 ```
 continue
@@ -440,23 +441,23 @@ Expressions dictate how computation is resolved, and how arithmetic symbols are 
 The order of operations are (from first executed to last);  
 | Precedence | Operation | Syntax | Class Standard Method |
 |:-|:-|:-|:-|
-1 | Invert (aka Not) | ``! <opperand>`` | Yes
-1 | Address | ``@ <variable_name>`` | -
-2 | Addition | ``<opperand> + <opperand> `` | Yes
-2 | Subtraction | ``<opperand> - <opperand>`` | Yes
-3 | Multiplication | ``<opperand> * <opperand>`` | Yes
-3 | Division | ``<opperand> / <opperand>`` | Yes
-4 | Modulus | ``<opperand> % <opperand>`` | Yes
-5 | And (boolean/set) | ``<opperand> && <opperand>`` | Yes
+1 | Invert (aka Not) | `! <opperand>` | Yes
+1 | Address | `@ <variable_name>` | -
+2 | Addition | `<opperand> + <opperand> ` | Yes
+2 | Subtraction | `<opperand> - <opperand>` | Yes
+3 | Multiplication | `<opperand> * <opperand>` | Yes
+3 | Division | `<opperand> / <opperand>` | Yes
+4 | Modulus | `<opperand> % <opperand>` | Yes
+5 | And (boolean/set) | `<opperand> && <opperand>` | Yes
 5 | Or (boolean/set) | ```<opperand> || <opperand>``` | Yes
 6 | Function calls (Async) | [definition](#Async-Await) | -
 6 | Function calls (Sync) | [definition](#Function) | -
-7 | Brackets | ``( <expr> )`` | -
+7 | Brackets | `( <expr> )` | -
 
 # Import
 Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
 
-The front end compiler is multiparse, thus it loads all required files and interprets all variable, function and class declarations before resolving any namespaces, or compiling any behvaiour. Thus importations can have circular references. i.e. ``A imports B; B imports C; C imports A`` 
+The front end compiler is multiparse, thus it loads all required files and interprets all variable, function and class declarations before resolving any namespaces, or compiling any behvaiour. Thus importations can have circular references. i.e. `A imports B; B imports C; C imports A` 
 
 Also note that all import filepaths are relative to the current file.
 
@@ -493,7 +494,7 @@ expose <namespace>
 
 Classes tie behaviour to data, and allow the accessing of class functions in scopes where the original class definition may not be available. It also allows for polymorphic programming, decreasing on duplicate code increasing project readability and maintainability.
 
-> Note that the name of classes can be used wherever ``<type>`` is used in a syntax outline within this document.
+> Note that the name of classes can be used wherever `<type>` is used in a syntax outline within this document.
 
 **Syntax:**
 ```
@@ -509,7 +510,7 @@ Definining a variable within a class will define a class attribute
 Same as variable [declaration](#Declare) however it must be within a class.
 
 ## Class: Functions
-Defines a class method, within any non-static function the namespace ``this`` refers to a pointer which points to a class instance or a child class instance. (Includes children of children)
+Defines a class method, within any non-static function the namespace `this` refers to a pointer which points to a class instance or a child class instance. (Includes children of children)
 
 **Syntax: Declaration**  
 Same as a normal [function](#Function) however it must be within a class block.
@@ -559,7 +560,7 @@ This means there is only one instance of this method/attribute for all instances
 
 Hence a static variable behaves similar to a global variable, however it may not be accessible by other methods/classes depedning what other modifiers are acting on it (public/private/protected).
 
-A static function behaves instead much more like a normal function, and does not possess a ``this`` variable within it's local scope. However it can still access any ``private``/``protected`` variables this class should have access to.
+A static function behaves instead much more like a normal function, and does not possess a `this` variable within it's local scope. However it can still access any `private`/`protected` variables this class should have access to.
 
 **Syntax**
 ```
@@ -570,7 +571,7 @@ class <namespace> {
 
 
 ## Class: Extends
-This will cause the new class to duplicate all of the attributes/methods from the exention class to this one. Note that in every case ``this`` will be upgraded to the new class type.  
+This will cause the new class to duplicate all of the attributes/methods from the exention class to this one. Note that in every case `this` will be upgraded to the new class type.  
 Also note that methods will not be copied if they are replaced within the new class.
 
 **Syntax:**  
@@ -593,7 +594,7 @@ class <namespace> extends <class> implements <interface> {
   <body>
 }
 ```
-For multiple interfaces they must be surrounded by square brackets ``[]``, and there must be a comma after each interface
+For multiple interfaces they must be surrounded by square brackets `[]`, and there must be a comma after each interface
 ```
 class <namespace> extends <class> implements [ <interface1>, <interface2> ] {
   <body>
@@ -603,7 +604,7 @@ class <namespace> extends <class> implements [ <interface1>, <interface2> ] {
 ## Class: Template
 This allows for dynamically generation of multiple versions of this class, each with customizeable structure and methods. This behaviour is very similar to [function templates](#Function-Template).
 
-Specifiers are declared similar to arguments - ``<type> <name>``, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the class body.
+Specifiers are declared similar to arguments - `<type> <name>`, however all types must be marked as [upgradeable](#Function-Argument-Upgrade) and the name specified can then be used as a classname within the class body.
 
 When a class is defined in template form, the namespace itself assumes the form of an interface, which then all versions of the class generated then implement said interface, and extend the defined class if extend clause is present.
 
@@ -618,8 +619,8 @@ class <namespace>[<specifier>] {
 ```
 
 **Syntax Use:**
-``namespace`` is the name of a template class available within the current scope.
-``type`` must be a classname available within the current scope.
+`namespace` is the name of a template class available within the current scope.
+`type` must be a classname available within the current scope.
 ```
 <namespace>[<type>]
 ```
@@ -628,7 +629,7 @@ class <namespace>[<specifier>] {
 Standard methods are methods used within [expressions](#Expression) to handle operators. These are not compulsory (except init), unless specified in an interface that is being implemented.  
 They also may have any modifiers on them unless specified otherwise.
 
-It is assumed that these methods return a new class instance, rather than altering the existing instance they were called upon. I.e. ``a.__add__(b)`` should not alter ``a`` but instead return a new value for the result.
+It is assumed that these methods return a new class instance, rather than altering the existing instance they were called upon. I.e. `a.__add__(b)` should not alter `a` but instead return a new value for the result.
 
 ### Class: Standard Methods: Init
 Init may **not** have the async specifier on it.
@@ -776,7 +777,7 @@ class <namespace> {
 ```
 
 ### Class: Standard Methods: To String
-Note that ``<text>`` may be of any type that is an upgrade from ``text``.
+Note that `<text>` may be of any type that is an upgrade from `text`.
 ```
 class <namespace> {
   <text> __modulo__ () {
@@ -786,7 +787,7 @@ class <namespace> {
 ```
 
 # Interface
-> Note that the name of interfaces can be used wherever ``<type>`` is used in a syntax outline within this document.
+> Note that the name of interfaces can be used wherever `<type>` is used in a syntax outline within this document.
 
 # Async
 A sync class declaration is defined in the [function outline](#Function-Modifier-Async). This segment outlines the change in execution behaviour and where async functions can and cannot be executed.
