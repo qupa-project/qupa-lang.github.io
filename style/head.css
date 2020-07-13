@@ -4,7 +4,7 @@ header{
 	left: 0px;
 	right: 0px;
 
-	background-color: rgba(var(--color-primary-raw), 1);
+	background-color: rgba(216, 27, 96, 1);
 	margin: 0px;
 	padding: 0px 10px;
 
@@ -19,10 +19,10 @@ header{
 }
 body[scrolled=true] header {
 	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
-	background-color: rgba(var(--color-primary-raw), 0.7);
+	background-color: rgba(216, 27, 96, 0.7);
 }
 body[scrolled=true] header:hover, header:hover {
-	background-color: rgba(var(--color-primary-raw), 1);
+	background-color: rgba(216, 27, 96, 1);
 }
 
 header a{

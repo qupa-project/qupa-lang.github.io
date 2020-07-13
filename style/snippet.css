@@ -28,7 +28,7 @@ code[inline="true"]{
 	color: inherit;
 }
 code:hover{
-	box-shadow: black 0px 0px 10px;
+	box-shadow: rgba(0,0,0, 0.5) 0px 0px 10px;
 }
 code::selection{
 	background: #9d550f;

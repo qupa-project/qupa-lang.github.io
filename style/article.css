@@ -82,11 +82,12 @@
 
 	text-align: right;
 }
+body[dark=true] .tags h6 {
+	color: #a5adb4;
+}
 .tags tag{
 	font-weight: 800;
 	font-size: 12px;
-
-	color: #24292e;
 
 	margin: 0px;
 	margin-left: 5px;
