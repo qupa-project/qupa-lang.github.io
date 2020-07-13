@@ -1,3 +1,11 @@
+Title: Language Reference
+Date: 13/07/2020
+Tags: Specification
+Related: ./SyntaxOutline.html
+---
+The detailed outline on Qupa's syntax
+---
+
 **Index:**
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
@@ -63,7 +71,7 @@
 >   * [Await](#Async-Await)
 
 # Abstract
-This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline.md)
+This document is the outline for the behaviour of Qupa's syntax, while it does also outline the syntax itself, there is a non-ambiguous BNF found [here](./SyntaxOutline)
 
 # Introduction
 

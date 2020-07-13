@@ -1,3 +1,11 @@
+Title: Syntax outline
+Date: 14/07/2020
+Tags: Specification
+Related: ./LangRef.html
+---
+The syntax outline for Qupa
+---
+
 ## Forammting
 The table above is a hybrid of [Regular Extensions to BNF](http://matt.might.net/articles/grammars-bnf-ebnf/) to be more easily readable. If the term in a table row is ``-`` then it means it is a variant of the above term.
 
