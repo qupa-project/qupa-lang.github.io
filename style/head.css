@@ -1,0 +1,45 @@
+header{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+
+	background-color: rgba(var(--color-primary-raw), 1);
+	margin: 0px;
+	padding: 0px 10px;
+
+	color: white;
+
+	z-index: 1000;
+
+	backdrop-filter: blur(2px);
+
+	transition-property: background-color, box-shadow;
+	transition-duration: 0.3s, 0.3s;
+}
+body[scrolled=true] header {
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+	background-color: rgba(var(--color-primary-raw), 0.7);
+}
+body[scrolled=true] header:hover, header:hover {
+	background-color: rgba(var(--color-primary-raw), 1);
+}
+
+header a{
+	color: white;
+	text-decoration: none;
+
+	padding: 5px 10px;
+	margin: 0px;
+
+	font-size: 18px;
+	font-weight: 700;
+
+	background-color: transparent;
+
+	transition-property: box-shadow;
+	transition-duration: 0.2s;
+}
+header a:hover{
+	box-shadow: black 0px 0px 10px;
+}

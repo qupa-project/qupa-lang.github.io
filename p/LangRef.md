@@ -1,3 +1,10 @@
+Title: Language Reference
+Date: 13/07/2020
+Tags: Specification
+---
+The detailed outline on Qupa's syntax
+---
+
 **Index:**
 > * [Abstract](#Abstract)
 > * [Introduction](#Introduction)
