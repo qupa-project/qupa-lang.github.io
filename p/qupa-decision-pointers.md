@@ -1,4 +1,4 @@
-Title: Why Qupa's design decision for pointers
+Title: Qupa's design choice for pointers
 Date: 14/07/2020
 Tags: Design-Decisions, Qupa
 Related: ./doc/langref.html
