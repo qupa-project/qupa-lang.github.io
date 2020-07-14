@@ -1,1 +1,10 @@
 node_modules/*
+package-lock.json
+
+!template/*
+
+# Include bulid files in master
+# Due to github pages
+!tags/*
+!*.html
+c
