@@ -1,7 +1,7 @@
 Title: Language Reference
 Date: 13/07/2020
 Tags: Specification
-Related: ./SyntaxOutline.html
+Related: ./doc/syntax-outline.html
 ---
 The detailed outline on Qupa's syntax
 ---
