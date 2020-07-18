@@ -1,7 +1,7 @@
 Title: Qupa
 Date: 18/07/2020
 ---
-The front page
+A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour.
 ---
 
 ### Queued Parrallism
