@@ -1,5 +1,5 @@
 Title: Qupa's design choice for pointers & templates
-Date: 15/07/2020
+Date: 18/07/2020
 Tags: Article, Design-Decisions, Qupa
 Related: ./doc/langref.html
 ---
@@ -10,11 +10,11 @@ The core influence for Qupa's syntax was C++ however a goal of our language's is
 
 ## Pointers
 
+Let's look at this example code snippet, and read it from the pointer of view of a C/++ or Javascript developer and the multiple ways this could be interpreted.
+
 ```
 a**b
 ```
-
-Let's look at this example code snippet, and read it from the pointer of view of a C/++ or Javascript developer and the multiple ways this could be interpreted.
 
 ### Interpretation 1
 
@@ -55,8 +55,25 @@ a <span class="kwd">**</span> b</code></pre>
 While this does not solve the interpretation of ``**`` alone, the use of ``^`` instead for powers will remove any confusion with the last two examples.
 
 ## Templates
+
 Within C++ templates are handled via the syntax ``name<args>``. Which is type declarations are clear and obvious, however when it comes into the context of expressions it can become ambiguous.  
-Take for example ``a<b>(c)`` - if we know that ``a`` is a template then it is quite clear that this should be resolved as ``a`` being a template function with generation argument ``b`` and the generated function should then execute with arguments ``c``. However, if a is not known to be a template it can be interpreted multiple ways, one such being ``a`` is less than ``b`` which is greater than ``c``.
+
+<pre><code>a&lt;b&gt;(c)</code></pre>
+
+### Interpretation 1
+
+<pre><code>a <span class="kwd">&lt;</span> b <span class="kwd">&gt;</span></span> (c)</code></pre>
+
+If we know that ``a`` is a template then it is quite clear that this should be resolved as ``a`` being a template function with generation argument ``b`` and the generated function should then execute with arguments ``c``. However, if a is not known to be a template it can be interpreted multiple ways, one such being ``a`` is less than ``b`` which is greater than ``c``.
+
+<pre><code><span class="cal">a<span class="typ">&lt;b&gt;</span></span>(c)</code></pre>
+
+This is the correct C++ interpretation of the snippet where you are accessing an instance of template ``a`` by the argument ``b``.  
+Then with that template instance you are executing it with arguments ``c``.
+
+### Our Synax
+
+<pre><code><span class="cal">a<span class="typ">[b]</span></span>(c)</code></pre>
 
 If you have a template which takes two types ``X`` and ``Y``, then any generated function/class from that simplifies a certain point within the dimensions of possibility. Hence if you passed a constant into a template you can see how it behaves the same as a function, however, instead, it is returning behaviour. You can then quite literally think of templates as lazy evaluation of a multiple dimension array of possible results. Hence if you wanted to get a template when given ``X`` and ``Y`` why would you not use the accessing syntax already used for arrays?
 
