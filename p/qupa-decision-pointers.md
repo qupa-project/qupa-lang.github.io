@@ -1,6 +1,6 @@
 Title: Qupa's design choice for pointers & templates
 Date: 15/07/2020
-Tags: Design-Decisions, Qupa
+Tags: Article, Design-Decisions, Qupa
 Related: ./doc/langref.html
 ---
 Why our pointer syntax was chosen
