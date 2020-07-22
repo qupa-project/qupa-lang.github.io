@@ -42,7 +42,7 @@ You've come from a newer language where ``**`` is shorthand for ``x`` to the pow
 
 ### Our Syntax
 
-We, of course, want a c-style syntax, which will impose minimal friction when transferring from other languages. So having four possible interpretations depending on your headspace is not an option.  
+We, of course, want a c-style syntax, which will impose minimal friction when transferring from other languages. So having four possible interpretations depending on your headspace is not an option.
 To negate this issue all operations should have their own unique symbol related to them. Hence why we chose ``$`` for dereferencing (getting the value of), and ``@`` for defining a pointer, as you are storing the address of something.
 
 Hence converting each of the previous interpretations into this new syntax they are clearly recognisable as different behaviour without any bracketing or spacing.
@@ -56,7 +56,7 @@ While this does not solve the interpretation of ``**`` alone, the use of ``^`` i
 
 ## Templates
 
-Within C++ templates are handled via the syntax ``name<args>``. Which is type declarations are clear and obvious, however when it comes into the context of expressions it can become ambiguous.  
+Within C++ templates are handled via the syntax ``name<args>``. Which is type declarations are clear and obvious, however when it comes into the context of expressions it can become ambiguous.
 
 <pre><code>a&lt;b&gt;(c)</code></pre>
 
@@ -68,13 +68,17 @@ If we know that ``a`` is a template then it is quite clear that this should be r
 
 <pre><code><span class="cal">a<span class="typ">&lt;b&gt;</span></span>(c)</code></pre>
 
-This is the correct C++ interpretation of the snippet where you are accessing an instance of template ``a`` by the argument ``b``.  
+This is the correct C++ interpretation of the snippet where you are accessing an instance of template ``a`` by the argument ``b``.
 Then with that template instance you are executing it with arguments ``c``.
 
 ### Our Synax
 
-<pre><code><span class="cal">a<span class="typ">[b]</span></span>(c)</code></pre>
+<pre><code><span class="cal">a<span class="typ">#[b]</span></span>(c)</code></pre>
 
 If you have a template which takes two types ``X`` and ``Y``, then any generated function/class from that simplifies a certain point within the dimensions of possibility. Hence if you passed a constant into a template you can see how it behaves the same as a function, however, instead, it is returning behaviour. You can then quite literally think of templates as lazy evaluation of a multiple dimension array of possible results. Hence if you wanted to get a template when given ``X`` and ``Y`` why would you not use the accessing syntax already used for arrays?
 
-Hence this is why we chose to use the syntax of ``[]`` to access a given template instance rather than the obfuscated syntax of ``<>``. So going back to the first example the equivalent Qupa syntax would be ``a[b](c)``. Whereof course ``a[b]`` is a compile time-resolved event.
+Hence this is why we chose to use the syntax of ``#[]`` to access a given template instance rather than the obfuscated syntax of ``<>``.
+So going back to the first example the equivalent Qupa syntax would be ``a#[b](c)``. Whereof course ``a#[b]`` is a compile time-resolved event.
+
+Why the ``#``? Because it specifies that the ``[]`` preceding it are a compile-time event. Hence why you cannot use variables within the brackets, and instead can only use literals and datatypes.
+This then makes the syntax clear for chaining- example ``foo.bar[x][y].action#[int](a, b)``, you can clearly see that ``foo`` is a structure containing an element named ``bar`` which is a 2D array, and then you are running the function ``action`` on that element with template specifier ``int`` and arguments ``a, b``. You can deduce this all from one simple line without even knowing the definition of any of these datatypes. Without the ``#`` it may be interpreted that ``action`` is another array which holds multiple functions *which is technically what a template is at compile time* however at runtime no template data exists.
