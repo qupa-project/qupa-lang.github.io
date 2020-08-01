@@ -2,17 +2,14 @@ require('dotenv').config();
 
 
 const IngestArticles = require('./ingestArticles.js');
-const { resolve, dirname } = require('path');
+const { resolve } = require('path');
 const fs = require('fs');
 
-if (!fs.existsSync('./public/')) {
-	fs.mkdirSync('./public/');
+if (!fs.existsSync('./tag/')) {
+	fs.mkdirSync('./tag/');
 }
-if (!fs.existsSync('./public/tag/')) {
-	fs.mkdirSync('./public/tag/');
-}
-if (!fs.existsSync('./public/rss/')) {
-	fs.mkdirSync('./public/rss/');
+if (!fs.existsSync('./rss/')) {
+	fs.mkdirSync('./rss/');
 }
 
 let head = fs.readFileSync('./template/head.html');
@@ -21,7 +18,7 @@ let footer = fs.readFileSync('./template/footer.html');
 let bank = IngestArticles();
 
 
-fs.writeFileSync('./public/CNAME', process.env.CNAME);
+fs.writeFileSync('./CNAME', process.env.CNAME);
 
 
 
@@ -75,15 +72,9 @@ function BuildArticle(article) {
 		body += '</span>';
 	}
 
-	let url = resolve('./', `./public${article.path}`);
-	let dir = dirname(url);
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir);
-	}
-
 	body += "</div>";
 	fs.writeFileSync(
-		resolve('./', `./public${article.path}`),
+		"."+article.path,
 		`<!DOCTYPE html><html><head>${meta}${head}</head><body>${header}${body}${footer}</body></html>`
 	);
 }
@@ -113,7 +104,7 @@ function BuildTagPage(name) {
 	body += '</div>';
 
 	return fs.writeFileSync(
-		`./public/tag/${name.toLocaleLowerCase()}.html`.toLowerCase(),
+		`./tag/${name.toLocaleLowerCase()}.html`.toLowerCase(),
 		`<!DOCTYPE html><html><head>${head}<title>Tag: ${name}</title></head><body>${header}${body}${footer}</body></html>`,
 		'utf8'
 	);
@@ -145,7 +136,7 @@ function BuildRSS(tag = "all") {
 
 	body += `<channel>${channel}</channel>`;
 	return fs.writeFileSync(
-		`./public/rss/${tag}.rss`.toLowerCase(),
+		`./rss/${tag}.rss`.toLowerCase(),
 		`<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel>${body}</channel></rss>`,
 		'utf8'
 	);
@@ -154,7 +145,7 @@ function BuildRSS(tag = "all") {
 
 function BuildSiteMap(bank) {
 	fs.writeFileSync(
-		resolve('./public/sitemap.txt'),
+		resolve('./sitemap.txt'),
 		bank.posts.map(x => `https://${process.env.CNAME}${x.path}`)
 			.concat( Object.keys(bank.tags).map(x => `https://${process.env.CNAME}/tag/${x.toLocaleLowerCase()}.html`) )
 			.join('\n')
