@@ -6,6 +6,8 @@ Related: ./doc/qupa-decision-pointers.md
 How delaying memory reads, write and execution can have a compounding optimisation effect
 ---
 
+> THIS DOCUMENT IS STILL UNDER DEVELOPMENT AND STILL CONSIDERED DRAFT FORM
+
 ## Abstract
 
 When CPU registers/stack values are reused instead of needing reloading this can decrease the number of read operations necessary. Similarly if you hold computation results in registers, and only write the value to memory when necessary some writes may not need to be performed as values get over written.
@@ -38,9 +40,42 @@ All variables can only be assigned once within LLVM. Hence if you want a variabl
 
 ## Stage 1: Read Caching
 
-> When a value is read, from memory the local variable used to store the result should be reused in place of reloading the value until such as time as the original is altered or presumed to be in some way.
+> When a value is read, from memory the register used to store the result should be reused in place of reloading the value until such as time as the original is altered or presumed to have changeed in some way.
 
-<div style="float:right">
-<pre><code><span type="spe">%1</span> = <span class="kwd">alloca</span> <span class="typ">i32</span>
-<span type="spe">%2</span> = <span class="kwd">load</span> <span class="typ">i32</span>, <span class="typ">i32*</span> <span type="spe">%1</span></pre></code>
-</div>
+The below example was compiled with both Clang++ and also transpiled then compiled with Qupa. Please note that C++ aims for assembly level linking compatability, hence why it is using integer pointers rather than an array at the LLVM-IR level.
+
+![source](./latent-access-optimisation/read-1-source.png)
+
+---
+
+The C++ compiled version is 19 lines of assembly, and includes multiple redundant reloads, and recalculations of addresses
+
+![cpp output](./latent-access-optimisation/read-1-cpp-out.png)
+
+---
+
+The Qupa compiled version is only 12 lines of assembly, because it reused as many values as it could, hence for some prints no extra calcuations were needed to run the next print. And in the final case the compiler knows that the value at that point is a constant primative - hence it instead directly uses that value rather than requiring any registers to be used.
+
+Also note that the two assignments are not computed. This is due to the fact that the no accessing of sub components of the values occurs, hence they can just be kept in registers in whole form. This is covered later in [stage 2](#stage-2-latent-writing).
+
+![qupa output](./latent-access-optimisation/read-1-qp-out.png)
+
+
+### Risks and Mitigation
+
+*TODO*
+
+* Writing to unknown points in an array
+* Pointers being parsed to functions
+
+## Stage 2: Latent Writing
+
+*TODO*
+
+## Stage 3: Latent Allocation
+
+*TODO*
+
+## Scenarios and Safeties
+
+*TODO*
