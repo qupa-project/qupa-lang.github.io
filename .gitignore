@@ -1,0 +1,11 @@
+node_modules/*
+tags/*
+*.html
+*.rss
+*.json
+package-lock.json
+sitemap.txt
+CNAME
+
+!template/*
+!package.json

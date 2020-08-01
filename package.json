@@ -1,0 +1,25 @@
+{
+  "name": "@qupa/page-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "marked": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "node build/compile.js",
+    "server": "node build/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qupa-lang/qupa-lang.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qupa-lang/qupa-lang.github.io/issues"
+  },
+  "homepage": "https://github.com/qupa-lang/qupa-lang.github.io#readme"
+}
