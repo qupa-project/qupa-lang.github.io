@@ -1,17 +1,17 @@
 const fs = require('fs');
 const http = require('http');
-const { resolve } = require('path');
 
 const server = http.createServer((req, res)=>{
 	if (req.url == '/'){
-		req.url = '/public/index.html';
+		req.url = '/index.html';
 	}
 
-	let path = resolve('./public/', '.'+req.url);
+	let path = '.'+req.url;
+
 	fs.exists(path, (b)=>{
 		if (!b){
 			res.statusCode = 404;
-			res.end('Invalid path: '+req.url);
+			res.end('Invalid path: '+path);
 			return;
 		}
 
@@ -26,5 +26,5 @@ const server = http.createServer((req, res)=>{
 });
 
 server.listen(8080, ()=>{
-	console.info(`Server running at http://localhost:8080`);
+	console.log(`Server running at http://localhost:8080`);
 })
