@@ -5,9 +5,6 @@ const IngestArticles = require('./ingestArticles.js');
 const { resolve } = require('path');
 const fs = require('fs');
 
-
-console.log(process.env);
-
 if (!fs.existsSync('./tag/')) {
 	fs.mkdirSync('./tag/');
 }
