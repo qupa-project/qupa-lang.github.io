@@ -4,12 +4,3 @@ package-lock.json
 
 !template/*
 !package.json
-
-
-# REMOVE WHEN FORKING
-tags/*
-*.html
-*.rss
-*.json
-sitemap.txt
-CNAME
