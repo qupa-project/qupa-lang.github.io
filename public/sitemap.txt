@@ -1,0 +1,11 @@
+https://example.com/index.html
+https://example.com/p/qupa-decision-pointers.html
+https://example.com/doc/syntax-outline.html
+https://example.com/doc/language-reference.html
+https://example.com/p/example.html
+https://example.com/readme.html
+https://example.com/tag/specification.html
+https://example.com/tag/qupa.html
+https://example.com/tag/document.html
+https://example.com/tag/article.html
+https://example.com/tag/design-decisions.html
