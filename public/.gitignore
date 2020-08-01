@@ -1,0 +1,7 @@
+# Remove these for your github pages branch
+
+sitemap.txt
+CNAME
+
+*.html
+*.rss

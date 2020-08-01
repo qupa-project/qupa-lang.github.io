@@ -1,15 +1,6 @@
 # IMPORTANT MUST STAY
-node_modules/*
-package-lock.json
+/node_modules/*
+/package-lock.json
 
-!template/*
-!package.json
-
-
-# REMOVE WHEN FORKING
-tags/*
-*.html
-*.rss
-*.json
-sitemap.txt
-CNAME
+!/template/*
+!/package.json
