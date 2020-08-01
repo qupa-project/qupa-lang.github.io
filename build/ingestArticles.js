@@ -62,7 +62,7 @@ function IngestArticles(){
 		} else {
 			article.related = [];
 		}
-		article.description = desc;
+		article.description = desc || "Unknown";
 		article.path = loc;
 		article.body = convert;
 
