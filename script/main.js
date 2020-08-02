@@ -5,13 +5,17 @@ function UpdateTheme(dark = false) {
 
 function JumpTo(anchorStr) {
 	let target = document.getElementById(anchorStr);
-	console.log('GOTO', anchorStr);
-	window.scrollBy(window.scrollX, target.getBoundingClientRect().top -20);
+	if (target) {
+		console.log('GOTO', anchorStr);
+		window.scrollBy(window.scrollX, target.getBoundingClientRect().top -20);
+	} else {
+		console.error('Invalid GOTO', anchorStr);
+	}
 }
 
 window.addEventListener('load', ()=>{
 	UpdateTheme(localStorage.getItem("dark-theme") === "true");
-	
+
 
 	function UpdateScroll(){
 		if (document.body.scrollTop / window.innerHeight > 0.2){
@@ -31,7 +35,9 @@ window.addEventListener('load', ()=>{
 	});
 
 	// Goto specified anchor
-	JumpTo(window.location.hash.slice(1).toLowerCase());
+	if (window.location.hash.length > 1) {
+		JumpTo(window.location.hash.slice(1).toLowerCase());
+	}
 
 	// Bind anchors
 	let root = window.location.origin + window.location.pathname;
@@ -44,7 +50,10 @@ window.addEventListener('load', ()=>{
 	}
 
 	// Bind anchor sets
-	let headers = [...document.getElementsByTagName('h1'), ...document.getElementsByTagName('h2')];
+	let headers = [
+		...document.getElementsByTagName('h1'),
+		...document.getElementsByTagName('h2')
+	];
 	for (let head of headers) {
 		head.addEventListener('click', (evt)=>{
 			window.location.hash = `#${evt.target.id}`;
