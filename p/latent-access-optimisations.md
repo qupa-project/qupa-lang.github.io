@@ -91,6 +91,8 @@ Writing is, however, a very costly process in comparison to reads. Because we ca
 
 ### 2.1. Example: Pointer Argument Assignment
 
+![Pointer Argument Assignment Output](./latent-access-optimisation/write-1-out.png)
+
 *TODO*
 
 ### 2.2. Example: Dynamic Array Access Assignment
