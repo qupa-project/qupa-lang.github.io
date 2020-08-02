@@ -10,20 +10,23 @@ How delaying memory reads, write and execution can have a compounding optimisati
 
 ## Abstract
 
-When CPU registers/stack values are reused instead of needing reloading this can decrease the number of read operations necessary. Similarly if you hold computation results in registers, and only write the value to memory when necessary some writes may not need to be performed as values get over written.
-These two effects combined with only allocating memory when accessing the address of the element is necessary can completely remove some function variables from the heap and instead they are completely resolved within registers/stack values without any extra processing or analysis required.
+When CPU registers/stack values are reused instead of reloading variable values there can be a decreased number of instructions performed, and loads required. Similarly if you hold computation results in registers, and only write the value to memory when necessary some writes may not need to be performed as values get over written, or are never parsed/accessed by address.
+
+These two effects combined with only allocating memory when accessing the address of the element is necessary - can completely remove some variables from the heap and instead they are completely resolved within registers/stack values without any extra processing or analysis required.
 
 ## Asumptions
 
 These optimisations presume:
 
-1. _Single-threaded Execution_ - hence if they are used in a multithreaded environment they can cause unexpected behaviour. However this does not mean that they cannot be used for multithreaded applications, instead if means that consideration about multithreaded concurrency is required when implementing a program using these optimisations, such as marking points where the values should be flushed, or any caches should be droped.
-2. _Single parse_ - a given function should be compiled in a single sweep. This means affects can only be accounted for linearly, hence in a section of code where looping occurs assumptions or known information may be discarded.
+1. _Single-Threaded Execution_ - hence if they are used in a multithreaded environment they can cause unexpected behaviour. However this does not mean that they cannot be used for multithreaded applications, instead if means that consideration about multithreaded concurrency is required when implementing a program using these optimisations, such as marking points where the values should be flushed, or any caches should be droped.
+2. _Single Parse_ - a given function should be compiled in a single sweep. This means affects can only be accounted for linearly, hence in a section of code where looping occurs assumptions or known information may be discarded.
 3. _Functional Independance_ - all functions are compiled only knowing their own behaviour, and cannot affect the behaviour of other functions and instead may only assume information provided during earlier stages of compilation (i.e. function signatures). Hence one function does not know what will occur to any value parsed to another. Hence when pointers are parsed to other functions, all known information about the pointer's value is lost.
+
+The draw backs created from these assumptions can be reduced by adding higher level constructs such as variable synchornisations points when values are shared by address across threads. Marking certain function arguments as being immutable, hence they will not affect the value of any parsed pointers.
 
 ## Background
 
-Throughout this article the focus is on LLVM-IR level of abstraction. This has been chosen due to it's high proximity to assembly and thus machine code - however it still maintains a relatively high level of readability, thus making explinations and examples simpler.
+Throughout this article, the focus is on LLVM-IR level of abstraction. This has been chosen due to it's high proximity to assembly and thus machine code - however it still maintains a relatively high level of readability, thus making explinations and examples simpler.
 
 ### About LLVM-IR
 
@@ -38,41 +41,53 @@ All variables can only be assigned once within LLVM. Hence if you want a variabl
 | Register | A local LLVM variable |
 | Concurrency | Used within this document to refer to the more broad interpretation of any execution occuring within the same time period. Hence it can apply to single threaded behaviour, such as calling a function within another. The child function is enacting concurrent behaviour because it occurs during the same time as the caller. |
 
-## Stage 1: Read Caching
+## 1. Read Caching
 
 > When a value is read, from memory the register used to store the result should be reused in place of reloading the value until such as time as the original is altered or presumed to have changeed in some way.
 
-The below example was compiled with both Clang++ and also transpiled then compiled with Qupa. Please note that C++ aims for assembly level linking compatability, hence why it is using integer pointers rather than an array at the LLVM-IR level.
+### 1.1. Example
+
+The below example was compiled with both Clang++ and also transpiled then compiled with Qupa which utilises the optimisations described in this document.
 
 ![source](./latent-access-optimisation/read-1-source.png)
 
----
+#### 1.1.1. Clang++ Generation
 
-The C++ compiled version is 19 lines of assembly, and includes multiple redundant reloads, and recalculations of addresses
+The C++ compiled version is 19 lines of assembly, and includes multiple redundant reloads, and recalculations of addresses. Please note that C++ aims for assembly level linking compatability, hence why it is using integer pointers rather than an array at the LLVM-IR level.
 
 ![cpp output](./latent-access-optimisation/read-1-cpp-out.png)
 
----
+#### 1.1.2. Qupa Generation
 
 The Qupa compiled version is only 12 lines of assembly, because it reused as many values as it could, hence for some prints no extra calcuations were needed to run the next print. And in the final case the compiler knows that the value at that point is a constant primative - hence it instead directly uses that value rather than requiring any registers to be used.
 
-Also note that the two assignments are not computed. This is due to the fact that the no accessing of sub components of the values occurs, hence they can just be kept in registers in whole form. This is covered later in [stage 2](#stage-2-latent-writing).
+Also note that the two assignments are not computed. This is due to the fact that the no accessing of sub components of the values occurs, hence they can just be kept in registers in whole form. This is covered later in [stage 2](#2-latent-writing).
 
 ![qupa output](./latent-access-optimisation/read-1-qp-out.png)
 
+---
 
-### Risks and Mitigation
+### 1.2. Risks and Mitigation
+
+The two main risks created from read caching are related to aliasing (multiple ways of accessing the same information). For instance when a pointer is parsed to a function, then the function preceeds to read and write to that point, that is a seperate alias to the data than the original calling function used.
+Similarly, when a subcomponent of a variable (i.e. and element of an array) is accessed dynamically, their may be multiple aliases to the same sub-component (i.e. ``p[x]``, ``p[y]``, where ``x == y``).
+
+#### 1.2.1. Function calls and pointer
+Due to [assumption #3](#assumptions), when an address is parsed to another function it cannot be determined if the function will alter the value, or how it will access it. Hence we must perform certain actions before and after the call:
+* Preamble (before): The any values purely stored in registers for this variable must be flushed and thus written to the memory address so they can be read by the child function.
+* Epilog (after): Once the function has been executed the resulting state of the value is unknown, hence any cached values must be dropped.
+
+#### 1.2.2. Dynamic Accessing of Sub-Components
+
+To determine the address of a dynamic access requires computing the access itself, which then requires computing the code around it which is then intepreted rather than compiled behaviour. Hence any dynamic access is treated as a complete unknown. Hence if we access element ``x`` and element ``y`` of an array ``p``, even if both ``x`` and ``y`` at that point in time may theoretically both be the same value, they should still be treated as unique accesses with unique caches. This may lead to duplicate caches of the same information in memory, however this can be improved in later versions of this algorithm, and are details more concerned with implementation.
+
+Writing is however a very costly process in comparison to reads. Because we cannot determine where exactly the data is being written two, and which other aliases (i.e. ``p[x]``, ``p[y]``) might be affected, when any write is performed to a sub-component, that value must be properly written into memory, and all other caches for the value must be droped.
+
+## 2. Latent Writing
 
 *TODO*
 
-* Writing to unknown points in an array
-* Pointers being parsed to functions
-
-## Stage 2: Latent Writing
-
-*TODO*
-
-## Stage 3: Latent Allocation
+## 3. Latent Allocation
 
 *TODO*
 
