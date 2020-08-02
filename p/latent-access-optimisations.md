@@ -91,9 +91,13 @@ Writing is, however, a very costly process in comparison to reads. Because we ca
 
 ### 2.1. Example: Pointer Argument Assignment
 
+This example shows how changes to a concurrent variable must be flushed once the function exits (aka returns).
 ![Pointer Argument Assignment Output](./latent-access-optimisation/write-1-out.png)
 
-*TODO*
+The example first prints the two integers, as neither of them have been loaded into registers, both prints require one load to occur.
+Next the value at ``a`` is assigned to the value of itself plus the value of ``b``. Note that this value is not written to memory at this point, as the address is not in use.
+After that the new ``a`` and ``b`` values are printed - as ``b`` is already cached the value from before can be reused as ``b`` has not changed; and the value of ``a`` is known already due to the computation result being in a local register.
+Finally when the function exits the value of ``a`` is written to the correct location, hence the side effects are perceivable from the caller.
 
 ### 2.2. Example: Dynamic Array Access Assignment
 
