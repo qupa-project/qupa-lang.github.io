@@ -73,7 +73,7 @@ The two main risks created from read-caching are related to aliasing (multiple w
 Similarly, when a subcomponent of a variable (i.e. and an element of an array) is accessed dynamically, there may be multiple aliases to the same sub-component (i.e. ``p[x]``, ``p[y]``, where ``x == y``).
 
 #### 1.2.1. Function calls and pointer
-Due to [asumptions #3](#asumptions), when an address is parsed to another function it cannot be determined if the function will alter the value, or how it will access it. Hence we must perform certain actions before and after the call:
+Due to [asumption #3](#asumptions), when an address is parsed to another function it cannot be determined if the function will alter the value, or how it will access it. Hence we must perform certain actions before and after the call:
 * Preamble (before): The any values purely stored in registers for this variable must be flushed and thus written to the memory address so they can be read by the child function.
 * Epilog (after): Once the function has been executed the resulting state of the value is unknown, hence any cached values must be dropped.
 
@@ -85,9 +85,27 @@ Writing is, however, a very costly process in comparison to reads. Because we ca
 
 ## 2. Latent Writing
 
+> Only write to memory once:
+> 1. An address access must occur on the value (i.e. accessing a sub element)
+> 2. The end of execution when a concurrent value has been altered (i.e. when a function returns, or when an asynchronous function pauses and the function is using a pointer parsed via an argument)
+
+### 2.1. Example: Pointer Argument Assignment
+
+*TODO*
+
+### 2.2. Example: Dynamic Array Access Assignment
+
 *TODO*
 
 ## 3. Latent Allocation
+
+> Only allocate memory for a variable once a [latent write](#2-latent-writing) must be performed
+
+### 3.1 Example: Allocating & Using a Variable
+
+*TODO*
+
+### 3.2 Example: Using & Manipulating Arguments
 
 *TODO*
 
