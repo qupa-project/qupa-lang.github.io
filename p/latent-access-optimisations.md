@@ -131,20 +131,41 @@ Both ``a`` and ``b`` are never written to memory in this function as they do not
 
 ![Dynamic Array Access Assignment Output](./latent-access-optimisation/alloc-2-out.png)
 
-*TODO*
+First ``a`` was parsed as an argument to the function ``Something()``, then through the function it was never accessed by address, so it never needed to be properly allocated as a local variable.
+Then ``b.width`` was changed however, which then required ``b`` to be stored at an address, hence it was allocated space as a local variable, then that address was able to be used to access the sub component ``.width`` and modify it. Note that ``flush(b)`` is simply there to force ``b.width`` to be written or else these five lines of LLVM would never be generated as the value would not need to be written.
+
+## Implementation
+
+This sections goal is to illurate some cases where the rules can easily be broken by over looking certain implementation detail in the optimisation.
+
+### Argument Pointers
+
+When a function is parsed a pointer, and the value is changed locally or parsed to another function that may change the pointer's value. Those changes must be flushed (written to memory) before the function execution ends. Otherwise the changes will not be perceivable and rule 2 will be broken.
+
+Within Qupa this problem is circumvented by flushing any variables flagged as ``concurrent`` before returning. The compiler flags function variables which are pointers as ``concurrent variables``, because their changes must be perceivable out of the current execution stream (from the caller).
+
+### Branches
+
+Branches such as if/else statements and switches create execution paths that may not be executed. Hence a variables cache may be replaced in one branch and not another. This means that when the cache needs to be accessed later it is perceived as being in two possible states. A naieve solution to this is to flush any altered variables at the end of an if/else statement block then require a reload the next time the value is executed.
+
+This method however introduces and extra load which is not necessary due to a concept called ``phi`` in LLVM. There is a code example [here](https://github.com/qupa-lang/Qupa/issues/37), and ``phi`` blocks are explained further in [Implementation: Loops](#loops).
+
+### Loops
+
+```qupa
+int i = 0;
+while (i < 10) {
+	print(i);
+	i = i + 1;
+}
+```
+During the first execution of the while loop clearly the value of ``i`` is ``0``, however during the preceeding loops it is now a cache value. The naieve approach would be to simply flush any caches before a while loop, then reload the values on each loop.
+
+A more advanced method would be to have a ``phi`` statement at the beginning of every loop for all values changed in the loop. Hence the cached for the value ``i`` in this cache can be ``%first_cache = phi [0, %begin ], [ %last_cache, %loop ]``, where ``first_cache`` is the register used from the beginning of the loop, and ``last_cache`` is the register holding the value for ``i`` at the end of the loop. This has the added benifit that after the loop we know the value for ``i`` is stored in ``last_cache``. A code example can be found [here](https://github.com/qupa-lang/Qupa/issues/38).
+
+A quite brief on ``phi`` - it behaves like a select statement, expect it is based on which execution block was executed before the ``phi``. In the example above, if the block that jumped to the loop was ``%begin`` then the value returned would be ``0``, but if it was from the loop itself the value would be ``%last_cache``.
+
 
 ## Future Improvements
 
 A second parse could be performed going backwards on outputted LLVM-IR to ensure all local variables are used. For instance the current optimisations could produce a line ``%c = add i32 %a, %b`` where the value of ``%c`` is never later used. Computations like this could be removed, however due to the numbering scheme of LLVM registers this would require renaming local variables as local variables must be defined in sequential order not skipping any numbers.
-
-## Implementation
-
-*TODO*
-
-### Branches
-
-*TODO*
-
-### Loops
-
-*TODO*
