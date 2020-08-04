@@ -101,20 +101,42 @@ Finally when the function exits the value of ``a`` is written to the correct loc
 
 ### 2.2. Example: Dynamic Array Access Assignment
 
-*TODO*
+This example takes an array of length three, and two integers - because then the value of ``x`` and ``y`` are completely unknown and the compiler won't resolve them to constants.
+![Dynamic Array Access Assignment Output](./latent-access-optimisation/write-2-out.png)
+
+When ``arr[x]`` and ``arr[y]`` are first accessed their locations need to first be determined, then their values can be loaded. These cached results are then used when they are reprinted.
+However once the assignment ``arr[y] = 3`` occurs the value of ``arr[x]`` is now unknown, because the compiler cannot determine if ``x == y`` - hence it drops all cached values, and reloads the necessary values.
+
+Note that the current implementation of Qupa's compiler clears all GEP caches, which means ``arr[y]`` needs to be reloaded even though the value is now known to be ``3``.
+
+Also note that only ``arr`` is allocated as a local variable because address access is used on that variable, however for ``x`` and ``y`` no such address access is used, so no allocation is required.
 
 ## 3. Latent Allocation
 
 > Only allocate memory for a variable once a [latent write](#2-latent-writing) must be performed
 
+Through out these examples there is a function used called ``flush()``, this is simply to force some writes to occur, otherwise these examples would perform no writes to memory.
+
 ### 3.1 Example: Allocating & Using a Variable
 
-*TODO*
+![Dynamic Array Access Assignment Output](./latent-access-optimisation/alloc-1-out.png)
+
+First ``a`` is assigned to the constant value of ``3`` which does not need to be written yet as the address has not yet been accessed.
+Then the computation for ``b`` is cacluated and again not written as it has not yet been accessed by address.
+Since both ``a`` and ``b`` are known their values can simpily be assigned to the address of ``width`` and ``height`` of rectangle ``r``.
+
+Both ``a`` and ``b`` are never written to memory in this function as they do not need to be.
 
 ### 3.2 Example: Using & Manipulating Arguments
 
+![Dynamic Array Access Assignment Output](./latent-access-optimisation/alloc-2-out.png)
+
 *TODO*
 
-## Scenarios and Safeties
+## Future Improvements
+
+A second parse could be performed going backwards on outputted LLVM-IR to ensure all local variables are used. For instance the current optimisations could produce a line ``%c = add i32 %a, %b`` where the value of ``%c`` is never later used. Computations like this could be removed, however due to the numbering scheme of LLVM registers this would require renaming local variables as local variables must be defined in sequential order not skipping any numbers.
+
+## Implementation
 
 *TODO*
