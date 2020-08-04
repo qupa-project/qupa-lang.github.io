@@ -140,3 +140,11 @@ A second parse could be performed going backwards on outputted LLVM-IR to ensure
 ## Implementation
 
 *TODO*
+
+### Branches
+
+*TODO*
+
+### Loops
+
+*TODO*
