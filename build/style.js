@@ -14,7 +14,7 @@ module.exports = {
 
 		let highlighter = await shiki.getHighlighter({
 			theme: 'monokai',
-			langs: config.langs
+			langs: config.langs.concat(shiki.BUNDLED_LANGUAGES)
 		});
 
 		let md = markdown({
