@@ -1,10 +1,13 @@
 Title: Language Reference
 Date: 13/07/2020
 Tags: Specification, Qupa
-Related: ./doc/syntax-outline.html
+Related: /qupa-lang/docs/syntax-outline.html
 ---
 The detailed outline on Qupa's syntax
 ---
+
+> **This language has evolved into the [Uniview](/uniview.html) language, and has since had development abbandonded as it was still in conceptual phase**
+> This page among others is kept for archival purposes
 
 **Index:**
 > * [Abstract](#Abstract)

@@ -1,7 +1,8 @@
 Title: Latent Access Optimisations
 Date: 1/08/2020
 Tags:
-Related: ./doc/qupa-decision-pointers.md
+Related: /qupa-lang/docs/qupa-decision-pointers.md
+unlisted: true
 ---
 How delaying memory reads, write and execution can have a compounding optimisation effect
 ---
