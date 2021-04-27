@@ -15,7 +15,7 @@ if (!fs.existsSync('./rss/')) {
 let head = fs.readFileSync('./template/head.html');
 let header = fs.readFileSync('./template/header.html');
 let footer = fs.readFileSync('./template/footer.html');
-let bank = IngestArticles();
+let bank = null;
 
 
 fs.writeFileSync('./CNAME', process.env.CNAME);
@@ -153,15 +153,40 @@ function BuildSiteMap(bank) {
 }
 
 
-SortPosts();
-for (let article of bank.posts) {
-	BuildArticle(article);
-}
-for (let name in bank.tags) {
-	BuildTagPage(name);
-}
-for (let name in bank.tags) {
-	BuildRSS(name);
-}
-BuildRSS("all");
-BuildSiteMap(bank);
+(async ()=>{
+	bank = await IngestArticles();
+
+	SortPosts();
+	for (let article of bank.posts) {
+		BuildArticle(article);
+	}
+	for (let name in bank.tags) {
+		BuildTagPage(name);
+	}
+	for (let name in bank.tags) {
+		BuildRSS(name);
+	}
+	BuildRSS("all");
+	BuildSiteMap(bank);
+})();
+
+
+
+
+// const style = require('./style.js');
+// style.init().then(async () => {
+// 	SortPosts();
+
+// 	for (let article of bank.posts) {
+// 		await BuildArticle(article);
+// 	}
+
+// 	for (let name in bank.tags) {
+// 		BuildTagPage(name);
+// 	}
+// 	for (let name in bank.tags) {
+// 		BuildRSS(name);
+// 	}
+// 	BuildRSS("all");
+// 	BuildSiteMap(bank);
+// });
