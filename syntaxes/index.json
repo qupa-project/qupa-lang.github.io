@@ -8,6 +8,10 @@
 			"id": "regexp",
 			"scopeName": "source.js.regexp",
 			"path": "regexp.tmLanguage.json"
+		},{
+			"id": "qupa",
+			"scopeName": "source.qp",
+			"path": "qupa.tmLanguage.json"
 		}
 	]
 }

@@ -1,10 +1,13 @@
 Title: Syntax outline
 Date: 14/07/2020
-Related: ./doc/language-reference.html
+Related: /qupa-lang/docs/language-reference.html
 Tags: Specification, Qupa
 ---
 The syntax outline for Qupa
 ---
+
+> **This language has evolved into the [Uniview](/uniview.html) language, and has since had development abbandonded as it was still in conceptual phase**
+> This page among others is kept for archival purposes
 
 ## Forammting
 The table above is a hybrid of [Regular Extensions to BNF](http://matt.might.net/articles/grammars-bnf-ebnf/) to be more easily readable. If the term in a table row is ``-`` then it means it is a variant of the above term.
@@ -20,12 +23,12 @@ any | consume all characters until next requirement is reached
 eol | ``"\n"``
 comment | ``"//" * eol``
 ~ | ``"/*" any* "*/"``
-**Namespace** | 
+**Namespace** |
 letters | ``( "a" \| "b" \| "c" \| "d" \| "e" \| "f" \| "g" \| "h" \| "i" \| "j" \| "k" \| "l" \| "m" \| "n" \| "o" \| "p" \| "q" \| "r" \| "s" \| "t" \| "u" \| "v" \| "w" \| "x" \| "y" \| "z" \| "A" \| "B" \| "C" \| "D" \| "E" \| "F" \| "G" \| "H" \| "I" \| "J" \| "K" \| "L" \| "M" \| "N" \| "O" \| "P" \| "Q" \| "R" \| "S" \| "T" \| "U" \| "V" \| "W" \| "X" \| "Y" \| "Z" )``
 digit | ``( "0" \| "1" \| "2" \| "3" \| "4" \| "5" \| "6" \| "7" \| "8" \| "9" )``
 name | ``( letters \| "_" )+ ( letters \| digit \| "_" )+ ``
 name_dotted | ``( letters \| "_" \| "." \| "->" )+ ( letters \| digit \| "_" \| "." \| "->" )+``
-**Constants** | 
+**Constants** |
 constant | ``( bool \| int \| double \| text )``
 bool | ``( "true" \| "false" )``
 int | ``digit+``
@@ -34,15 +37,15 @@ double | ``digit+ "." digit+``
 text | ``"\"" any* "\""``
 ~ | ``"'" any* "'"``
 **Template** |
-template | ``"[" template_argument ("," template_argument)* "]"`` 
+template | ``"[" template_argument ("," template_argument)* "]"``
 template_argument | ``"^" name_dotted name``
-**Functions** | 
+**Functions** |
 function | ``name_dotted name template? ( ":" func_mod+ )? "(" arguments ")" "{" func_body "}"``
 arguments | ``argument ("," argument)*``
 argument | ``("^")? name name ( "=" constant )?``
 func_call_sync | ``name_dotted "(" ( expression ( "," expression )* )? ")" ``
 func_body | ``(declare \| declare assign \| func_call_sync \| async_call \| if_stmt \| loop \| loop_cont \| look_break)*``
-**Async** | 
+**Async** |
 async_call | ``name_dotted "(" expression ( "," expression )* ")" "then" "->" name_dotted "{" func_body "}"``
 async_await | ``"await" name_dotted "(" expression ( "," expression )* ")"``
 **Class** |

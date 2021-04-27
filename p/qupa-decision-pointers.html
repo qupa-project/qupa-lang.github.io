@@ -6,53 +6,53 @@
 <script src="/script/main.js"></script></head><body><header>
 	<a href="/index.html" style="float: left;">Home</a>
 	<a href="/tag/article.html" style="float: left;">Feed</a>
-	<a style="float: right;">Qupa</a>
-</header><div class="wrapper"><h1>Qupa's design choice for pointers & templates</h1><p>The core influence for Qupa&#39;s syntax was C++ however a goal of our language&#39;s is to be completely explicitly clear. Which means no interpretation order bias. Hence ambiguous context-sensitive uses of <code>*</code>, <code>&lt;</code>, and <code>&gt;</code> which are used in C/++ are not acceptable.</p>
-<h2 id="pointers">Pointers</h2>
-<p>Let&#39;s look at this example code snippet, and read it from the pointer of view of a C/++ or Javascript developer and the multiple ways this could be interpreted.</p>
-<pre><code>a**b</code></pre>
-<h3 id="interpretation-1">Interpretation 1</h3>
+	<a style="float: right;">Qupa Project</a>
+</header><div class="wrapper"><h1>Qupa's design choice for pointers & templates</h1><blockquote>
+<p><strong>Qupa language has evolved into the <a href="/uniview.html">Uniview</a> language, and has since had development abbandonded as it was still in conceptual phase</strong>
+This page among others is kept for archival purposes</p>
+</blockquote>
+<p>The core influence for Qupa's syntax was C++ however a goal of our language's is to be completely explicitly clear. Which means no interpretation order bias. Hence ambiguous context-sensitive uses of <code>*</code>, <code>&lt;</code>, and <code>&gt;</code> which are used in C/++ are not acceptable.</p>
+<h2>Pointers</h2>
+<p>Let's look at this example code snippet, and read it from the pointer of view of a C/++ or Javascript developer and the multiple ways this could be interpreted.</p>
+<pre class="shiki" style="background-color: #272822"><code><span class="line"><span style="color: #F8F8F2">a**b
+</span></span></code></pre>
+<h3>Interpretation 1</h3>
 <pre><code>a <span class="kwd">*</span> <span class="cal">*b</span></code></pre>
-
-<p>This is the correct interpretation in a C/++ environment. Because as humans as we read the snippet from left to write we first see <code>a</code>, so we know it is likely the first operand of something, then we look across and see <code>*</code> which stands for multiplication. We can then look at the next character and see another <code>*</code>. We know as humans that you can&#39;t have an operator next to an operator, you need something in between them, so it must be a dereference. Then we see <code>b</code>, and we can then go back up our metal stack and determine that we&#39;re dereferencing <code>b</code> then multiplying <code>a</code> by that dereferenced result.</p>
-<h3 id="interpretation-2">Interpretation 2</h3>
+<p>This is the correct interpretation in a C/++ environment. Because as humans as we read the snippet from left to write we first see <code>a</code>, so we know it is likely the first operand of something, then we look across and see <code>*</code> which stands for multiplication. We can then look at the next character and see another <code>*</code>. We know as humans that you can't have an operator next to an operator, you need something in between them, so it must be a dereference. Then we see <code>b</code>, and we can then go back up our metal stack and determine that we're dereferencing <code>b</code> then multiplying <code>a</code> by that dereferenced result.</p>
+<h3>Interpretation 2</h3>
 <pre><code>a <span class="cal">**b</span></code></pre>
-
-<p>What if we read it from right to left? Then it has a completely different mean - and then also includes a syntax error. If we read from right to left we see <code>b</code>, then we see the first <code>*</code> and this time we might see it a dereference because clearly, a multiplication before a variable is a dereference. Then we go back another step and read the second <code>*</code> - okay so we&#39;re dereferencing twice. Then we hit <code>a</code>. And now what do we do? We haven&#39;t seen any operators which take two arguments. So we&#39;ve hit an error</p>
-<h3 id="interpretation-3">Interpretation 3</h3>
+<p>What if we read it from right to left? Then it has a completely different mean - and then also includes a syntax error. If we read from right to left we see <code>b</code>, then we see the first <code>*</code> and this time we might see it a dereference because clearly, a multiplication before a variable is a dereference. Then we go back another step and read the second <code>*</code> - okay so we're dereferencing twice. Then we hit <code>a</code>. And now what do we do? We haven't seen any operators which take two arguments. So we've hit an error</p>
+<h3>Interpretation 3</h3>
 <pre><code>a <span class="kwd">*</span> <span class="kwd">*</span> b</code></pre>
-
-<p>So now you&#39;re tired, or you&#39;ve just came from a language without pointers and you&#39;ve forgotten their existence. You read from left to right: <code>a</code>, <code>*</code>, <code>*</code>? You can&#39;t have a multiply <code>a</code> by a multiplication symbol. So this a syntax error incorrect.</p>
-<h3 id="interpretation-4">Interpretation 4</h3>
+<p>So now you're tired, or you've just came from a language without pointers and you've forgotten their existence. You read from left to right: <code>a</code>, <code>*</code>, <code>*</code>? You can't have a multiply <code>a</code> by a multiplication symbol. So this a syntax error incorrect.</p>
+<h3>Interpretation 4</h3>
 <pre><code>a <span class="kwd">**</span> b</code></pre>
-
-<p>You&#39;ve come from a newer language where <code>**</code> is shorthand for <code>x</code> to the power of <code>y</code>. So you read along and you see <code>a</code> to the power of <code>b</code>. This may work, but it heavily depends on the types of data stored within <code>a</code> and <code>b</code>.</p>
-<h3 id="our-syntax">Our Syntax</h3>
-<p>We, of course, want a c-style syntax, which will impose minimal friction when transferring from other languages. So having four possible interpretations depending on your headspace is not an option.<br>To negate this issue all operations should have their own unique symbol related to them. Hence why we chose <code>$</code> for dereferencing (getting the value of), and <code>@</code> for defining a pointer, as you are storing the address of something.</p>
+<p>You've come from a newer language where <code>**</code> is shorthand for <code>x</code> to the power of <code>y</code>. So you read along and you see <code>a</code> to the power of <code>b</code>. This may work, but it heavily depends on the types of data stored within <code>a</code> and <code>b</code>.</p>
+<h3>Our Syntax</h3>
+<p>We, of course, want a c-style syntax, which will impose minimal friction when transferring from other languages. So having four possible interpretations depending on your headspace is not an option.
+To negate this issue all operations should have their own unique symbol related to them. Hence why we chose <code>$</code> for dereferencing (getting the value of), and <code>@</code> for defining a pointer, as you are storing the address of something.</p>
 <p>Hence converting each of the previous interpretations into this new syntax they are clearly recognisable as different behaviour without any bracketing or spacing.</p>
 <pre><code>a <span class="kwd">*</span> <span class="kwd">$</span>b
 a <span class="kwd">$$</span>b
 a <span class="kwd">*</span> <span class="kwd">*</span> b
 a <span class="kwd">**</span> b</code></pre>
-
 <p>While this does not solve the interpretation of <code>**</code> alone, the use of <code>^</code> instead for powers will remove any confusion with the last two examples.</p>
-<h2 id="templates">Templates</h2>
+<h2>Templates</h2>
 <p>Within C++ templates are handled via the syntax <code>name&lt;args&gt;</code>. Which is type declarations are clear and obvious, however when it comes into the context of expressions it can become ambiguous.</p>
 <pre><code>a&lt;b&gt;(c)</code></pre>
-
-<h3 id="interpretation-1-1">Interpretation 1</h3>
+<h3>Interpretation 1</h3>
 <pre><code>a <span class="kwd">&lt;</span> b <span class="kwd">&gt;</span></span> (c)</code></pre>
-
 <p>If we know that <code>a</code> is a template then it is quite clear that this should be resolved as <code>a</code> being a template function with generation argument <code>b</code> and the generated function should then execute with arguments <code>c</code>. However, if a is not known to be a template it can be interpreted multiple ways, one such being <code>a</code> is less than <code>b</code> which is greater than <code>c</code>.</p>
 <pre><code><span class="cal">a<span class="typ">&lt;b&gt;</span></span>(c)</code></pre>
-
-<p>This is the correct C++ interpretation of the snippet where you are accessing an instance of template <code>a</code> by the argument <code>b</code>.<br>Then with that template instance you are executing it with arguments <code>c</code>.</p>
-<h3 id="our-synax">Our Synax</h3>
+<p>This is the correct C++ interpretation of the snippet where you are accessing an instance of template <code>a</code> by the argument <code>b</code>.
+Then with that template instance you are executing it with arguments <code>c</code>.</p>
+<h3>Our Synax</h3>
 <pre><code><span class="cal">a<span class="typ">#[b]</span></span>(c)</code></pre>
-
 <p>If you have a template which takes two types <code>X</code> and <code>Y</code>, then any generated function/class from that simplifies a certain point within the dimensions of possibility. Hence if you passed a constant into a template you can see how it behaves the same as a function, however, instead, it is returning behaviour. You can then quite literally think of templates as lazy evaluation of a multiple dimension array of possible results. Hence if you wanted to get a template when given <code>X</code> and <code>Y</code> why would you not use the accessing syntax already used for arrays?</p>
-<p>Hence this is why we chose to use the syntax of <code>#[]</code> to access a given template instance rather than the obfuscated syntax of <code>&lt;&gt;</code>.<br>So going back to the first example the equivalent Qupa syntax would be <code>a#[b](c)</code>. Whereof course <code>a#[b]</code> is a compile time-resolved event.</p>
-<p>Why the <code>#</code>? Because it specifies that the <code>[]</code> preceding it are a compile-time event. Hence why you cannot use variables within the brackets, and instead can only use literals and datatypes.<br>This then makes the syntax clear for chaining- example <code>foo.bar[x][y].action#[int](a, b)</code>, you can clearly see that <code>foo</code> is a structure containing an element named <code>bar</code> which is a 2D array, and then you are running the function <code>action</code> on that element with template specifier <code>int</code> and arguments <code>a, b</code>. You can deduce this all from one simple line without even knowing the definition of any of these datatypes. Without the <code>#</code> it may be interpreted that <code>action</code> is another array which holds multiple functions <em>which is technically what a template is at compile time</em> however at runtime no template data exists.</p>
+<p>Hence this is why we chose to use the syntax of <code>#[]</code> to access a given template instance rather than the obfuscated syntax of <code>&lt;&gt;</code>.
+So going back to the first example the equivalent Qupa syntax would be <code>a#[b](c)</code>. Whereof course <code>a#[b]</code> is a compile time-resolved event.</p>
+<p>Why the <code>#</code>? Because it specifies that the <code>[]</code> preceding it are a compile-time event. Hence why you cannot use variables within the brackets, and instead can only use literals and datatypes.
+This then makes the syntax clear for chaining- example <code>foo.bar[x][y].action#[int](a, b)</code>, you can clearly see that <code>foo</code> is a structure containing an element named <code>bar</code> which is a 2D array, and then you are running the function <code>action</code> on that element with template specifier <code>int</code> and arguments <code>a, b</code>. You can deduce this all from one simple line without even knowing the definition of any of these datatypes. Without the <code>#</code> it may be interpreted that <code>action</code> is another array which holds multiple functions <em>which is technically what a template is at compile time</em> however at runtime no template data exists.</p>
 <span class="tags"><h6 style="display: inline-block;">Tags:</h6><a href="/tag/article.html"><tag>Article;</tag></a><a href="/tag/design-decisions.html"><tag>Design-Decisions;</tag></a><a href="/tag/qupa.html"><tag>Qupa;</tag></a></span></div><footer>
 	<button id="Toggle-Dark-Theme">Dark Theme</button><br>
 	<a href="/rss/all.rss">RSS Feed</a>

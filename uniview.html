@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Uniview Language</title><meta name="description" content="View once immutability enabling the safeties of immutable code, while enjoying near procedural performance"><meta name="keywords" content=""><meta property="og:title" content="Uniview Language"><meta property="og:description" content="View once immutability enabling the safeties of immutable code, while enjoying near procedural performance"><meta property="og:type" content="article"><meta property="og:url" content="https://www.qupa.org/uniview.html"><meta property="og:process.env.SITE_NAME" content="Qupa"><meta property="og:tag" content=""><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d81b60">
+
+<link rel="stylesheet" type="text/css" href="/style/main.css">
+
+<script src="/script/main.js"></script></head><body><header>
+	<a href="/index.html" style="float: left;">Home</a>
+	<a href="/tag/article.html" style="float: left;">Feed</a>
+	<a style="float: right;">Qupa Project</a>
+</header><div class="wrapper"><h1>Uniview Language</h1><table>
+<thead>
+<tr>
+<th style="text-align:center"><a href="/uniview/documentation.html">Documentation</a></th>
+<th style="text-align:center"><a href="/uniview/tutorial.html">Learn by Example</a></th>
+<th style="text-align:center"><a href="/uniview/syntax.html">Language Syntax</a></th>
+</tr>
+</thead>
+</table>
+<p>The core concept behind the language is adding the smallest restrictions of variable visibility and lifetime to create massively possitive side affects. Each value may only be viewed once, the only way to re-view a value is if a clone was produced within the first sighting. Otherwise values are treated as complete black boxes until viewing is necessary.</p>
+<pre class="shiki" style="background-color: #272822"><code><span class="line"><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> p </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">Blank</span><span style="color: #F92672">#[</span><span style="color: #A6E22E">Person</span><span style="color: #F92672">]</span><span style="color: #F8F8F2">();</span></span>
+<span class="line"><span style="color: #A6E22E">print</span><span style="color: #F8F8F2">(</span><span style="color: #F92672">$</span><span style="color: #F8F8F2">p); </span><span style="color: #88846F">// prints a clone of p</span></span>
+<span class="line"><span style="color: #A6E22E">print</span><span style="color: #F8F8F2">(p); </span><span style="color: #88846F">// p is consumed by print</span></span>
+<span class="line"><span style="color: #88846F">// p is now undefined</span></span>
+<span class="line"></span></code></pre>
+<p>There is also another very important concept to this language of inline-returns.  This can be thought of as like lending a value forwards, however it would be more accurate to say you are giving the value forward, then reassigning that name to the result.</p>
+<pre class="shiki" style="background-color: #272822"><code><span class="line"><span style="color: #A6E22E">age</span><span style="color: #F8F8F2">(</span><span style="color: #F92672">$</span><span style="color: #F8F8F2">p);</span></span>
+<span class="line"><span style="color: #A6E22E">print</span><span style="color: #F8F8F2">(p); </span><span style="color: #88846F">// no change as a clone was passed</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #A6E22E">age</span><span style="color: #F8F8F2">(</span><span style="color: #F92672">@</span><span style="color: #F8F8F2">p);</span></span>
+<span class="line"><span style="color: #A6E22E">print</span><span style="color: #F8F8F2">(p); </span><span style="color: #88846F">// the person is now older</span></span>
+<span class="line"></span></code></pre>
+</div><footer>
+	<button id="Toggle-Dark-Theme">Dark Theme</button><br>
+	<a href="/rss/all.rss">RSS Feed</a>
+</footer></body></html>

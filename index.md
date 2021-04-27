@@ -1,17 +1,13 @@
-Title: Qupa
-Date: 18/07/2020
+Title: The Qupa Project
+Date: 27/04/2021
 ---
-A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour.
+Massively multi-threaded applications should not massively increase cognitive load
 ---
 
-### Queued Parrallism
+The primary goal of the Qupa project is to create a development environment designed for easily maintainable and intuative multithreaded programs.
+This has lead to the development of multiple concept languages, all of which the experience gained has culminated into uniview.
 
-A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour.
-
-Still in heavy development, you can view the project on [Github](https://github.com/qupa-lang/Qupa)
-
-## Road Map
-**Pre-Alpha**: Code execution and queue based parallel processing.  
-**Alpha**: The interpreter/compiler is able to be written in the language itself.  
-**Beta**: The language is now fully written in itself.  
-**Release**: Full filesystem and TCP implementation, also including execution stack traces as optional compile behaviour for debugging.
+## Uniview
+The core concept behind the language is adding the smallest restrictions of variable visibility and lifetime to create massively possitive side affects.  
+Each value may only be viewed once, the only way to re-view a value is if a clone was produced within the first sighting. Otherwise values are treated as complete black boxes until viewing is necessary.  
+[Read more](/uniview.html)

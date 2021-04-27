@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Qupa</title><meta name="description" content="A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour."><meta name="keywords" content=""><meta property="og:title" content="Qupa"><meta property="og:description" content="A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour."><meta property="og:type" content="article"><meta property="og:url" content="https://www.qupa.org/index.html"><meta property="og:process.env.SITE_NAME" content="Qupa"><meta property="og:tag" content=""><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>The Qupa Project</title><meta name="description" content="Massively multi-threaded applications should not massively increase cognitive load"><meta name="keywords" content=""><meta property="og:title" content="The Qupa Project"><meta property="og:description" content="Massively multi-threaded applications should not massively increase cognitive load"><meta property="og:type" content="article"><meta property="og:url" content="https://www.qupa.org/index.html"><meta property="og:process.env.SITE_NAME" content="Qupa"><meta property="og:tag" content=""><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#d81b60">
 
 <link rel="stylesheet" type="text/css" href="/style/main.css">
@@ -6,12 +6,13 @@
 <script src="/script/main.js"></script></head><body><header>
 	<a href="/index.html" style="float: left;">Home</a>
 	<a href="/tag/article.html" style="float: left;">Feed</a>
-	<a style="float: right;">Qupa</a>
-</header><div class="wrapper"><h1>Qupa</h1><h3 id="queued-parrallism">Queued Parrallism</h3>
-<p>A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour.</p>
-<p>Still in heavy development, you can view the project on <a href="https://github.com/qupa-lang/Qupa">Github</a></p>
-<h2 id="road-map">Road Map</h2>
-<p><strong>Pre-Alpha</strong>: Code execution and queue based parallel processing.<br><strong>Alpha</strong>: The interpreter/compiler is able to be written in the language itself.<br><strong>Beta</strong>: The language is now fully written in itself.<br><strong>Release</strong>: Full filesystem and TCP implementation, also including execution stack traces as optional compile behaviour for debugging.</p>
+	<a style="float: right;">Qupa Project</a>
+</header><div class="wrapper"><h1>The Qupa Project</h1><p>The primary goal of the Qupa project is to create a development environment designed for easily maintainable and intuative multithreaded programs.
+This has lead to the development of multiple concept languages, all of which the experience gained has culminated into uniview.</p>
+<h2>Uniview</h2>
+<p>The core concept behind the language is adding the smallest restrictions of variable visibility and lifetime to create massively possitive side affects.<br>
+Each value may only be viewed once, the only way to re-view a value is if a clone was produced within the first sighting. Otherwise values are treated as complete black boxes until viewing is necessary.<br>
+<a href="/uniview.html">Read more</a></p>
 </div><footer>
 	<button id="Toggle-Dark-Theme">Dark Theme</button><br>
 	<a href="/rss/all.rss">RSS Feed</a>

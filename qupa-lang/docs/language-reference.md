@@ -1,10 +1,13 @@
 Title: Language Reference
 Date: 13/07/2020
 Tags: Specification, Qupa
-Related: ./doc/syntax-outline.html
+Related: /qupa-lang/docs/syntax-outline.html
 ---
 The detailed outline on Qupa's syntax
 ---
+
+> **This language has evolved into the [Uniview](/uniview.html) language, and has since had development abbandonded as it was still in conceptual phase**
+> This page among others is kept for archival purposes
 
 **Index:**
 > * [Abstract](#Abstract)
@@ -104,7 +107,7 @@ Constants are assumed certain types based on their pattern. These types/patterns
 This constant is always resolved as if it is of a [boolean]() class.
 
 **Regex:**
-```regex
+```regexp
 /(false|true)/w
 ```
 
@@ -112,7 +115,7 @@ This constant is always resolved as if it is of a [boolean]() class.
 This constant is always resolved as if it is of a [i64]() class.
 
 **Regex:**
-```regex
+```regexp
 /([0-9]{0,})/w
 ```
 
@@ -120,7 +123,7 @@ This constant is always resolved as if it is of a [i64]() class.
 This constant is always resolved as if it is of a [f64]() class.
 
 **Regex:**
-```regex
+```regexp
 /([0-9]{1,})\.([0-9]{1,})/w
 ```
 or
@@ -135,17 +138,17 @@ or
 ```
 
 ## Constant: Text
-This constant will behave differently depending on which character you use to open and close it. If you use a single quote `'`, then the constant data will be interpreted into a [string]() class. Otherwise if a `"` is used, then the data will interpreted into a [unicode]() class.  
+This constant will behave differently depending on which character you use to open and close it. If you use a single quote `'`, then the constant data will be interpreted into a [string]() class. Otherwise if a `"` is used, then the data will interpreted into a [unicode]() class.
 
-> Note that a [string]() behaves presuming each character is 1 byte long, while [unicode]() supports variable length characters, and thus UTF-8 support.  
+> Note that a [string]() behaves presuming each character is 1 byte long, while [unicode]() supports variable length characters, and thus UTF-8 support.
 > Both string and unicode implement the interface `text`.
 
 **Regex:**
-```regex
+```regexp
 (")(.+)(?!\\")
 ```
 or
-```regex
+```regexp
 (')(.+)(?!\\')
 ```
 
@@ -191,7 +194,7 @@ Arguments may have a default value which it will posess if no value is specified
 ### Function: Argument: Upgrade
 > Implementation Stage: Beta/Release
 
-A function argument's type can be marked as upgradable, meaning this function can be produce multiple methods for instances where it is called and parsed a child type.  
+A function argument's type can be marked as upgradable, meaning this function can be produce multiple methods for instances where it is called and parsed a child type.
 For instance if you have `Student` as an extended class of `Person`, you may parse the student inplace of a `Person` argument.
 ```qupa
 void SayHi (^Person person) {
@@ -229,7 +232,7 @@ Function modifiers are optional, however they change the compilation and executi
 ### Function: Modifier: Async
 > Implementation Stage Alpha
 
-The `async` modifier specified this function will behave asynchnously. Meaning it can have delayed returns, interupted execution, and may continue execution due to cleanup or other listeners after returning. Further execution behaviour defined in [async](#Async).  
+The `async` modifier specified this function will behave asynchnously. Meaning it can have delayed returns, interupted execution, and may continue execution due to cleanup or other listeners after returning. Further execution behaviour defined in [async](#Async).
 
 Note that the async modifier cannot be used at the same time as the `inline` modifier.
 
@@ -436,9 +439,9 @@ continue <lable>
 
 
 # Expression
-Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).  
+Expressions dictate how computation is resolved, and how arithmetic symbols are resolved. Most expression opperands are processed according to their [standard class method](#Class-Standard-Methods).
 
-The order of operations are (from first executed to last);  
+The order of operations are (from first executed to last);
 | Precedence | Operation | Syntax | Class Standard Method |
 |:-|:-|:-|:-|
 1 | Invert (aka Not) | `! <opperand>` | Yes
@@ -455,9 +458,9 @@ The order of operations are (from first executed to last);
 7 | Brackets | `( <expr> )` | -
 
 # Import
-Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.  
+Allows access to variables and functions exposed within another file. The compiler will always search the local scopes first, before trying to resolve to names within other files.
 
-The front end compiler is multiparse, thus it loads all required files and interprets all variable, function and class declarations before resolving any namespaces, or compiling any behvaiour. Thus importations can have circular references. i.e. `A imports B; B imports C; C imports A` 
+The front end compiler is multiparse, thus it loads all required files and interprets all variable, function and class declarations before resolving any namespaces, or compiling any behvaiour. Thus importations can have circular references. i.e. `A imports B; B imports C; C imports A`
 
 Also note that all import filepaths are relative to the current file.
 
@@ -470,7 +473,7 @@ import "<filepath>"
 ```
 
 ## Import: As
-All exposed namepsaces within the imported file are only accessible under the namespace provided.  
+All exposed namepsaces within the imported file are only accessible under the namespace provided.
 **Example:**
 ```qupa
 import "library.qp" as library
@@ -512,10 +515,10 @@ Same as variable [declaration](#Declare) however it must be within a class.
 ## Class: Functions
 Defines a class method, within any non-static function the namespace `this` refers to a pointer which points to a class instance or a child class instance. (Includes children of children)
 
-**Syntax: Declaration**  
+**Syntax: Declaration**
 Same as a normal [function](#Function) however it must be within a class block.
 
-**Syntax: Call**  
+**Syntax: Call**
 Similar to [function](#Function) however the class instance must be specified. Note that this behaviour is changed when the function has the [static modifier](#Class-Attribute-Modifier-Static) applied to it. In that case `<class_instance>` should be replaced with the class' name.
 ```
 <class_instance>.<function_name>( <argments> )
@@ -571,10 +574,10 @@ class <namespace> {
 
 
 ## Class: Extends
-This will cause the new class to duplicate all of the attributes/methods from the exention class to this one. Note that in every case `this` will be upgraded to the new class type.  
+This will cause the new class to duplicate all of the attributes/methods from the exention class to this one. Note that in every case `this` will be upgraded to the new class type.
 Also note that methods will not be copied if they are replaced within the new class.
 
-**Syntax:**  
+**Syntax:**
 A class may only have one extention clause, the exention clause must be after the class name
 ```
 class <namespace> extends <class> {
@@ -587,8 +590,8 @@ This defines that this class will implement all features (methods/attributes) th
 
 A single class can implement multiple interfaces, any interface that the class implements - this class will not be considered an upgrade of the interface.
 
-**Syntax:**  
-The implements clause must be after the class name, and after any extention.  
+**Syntax:**
+The implements clause must be after the class name, and after any extention.
 ```
 class <namespace> extends <class> implements <interface> {
   <body>
@@ -608,7 +611,7 @@ Specifiers are declared similar to arguments - `<type> <name>`, however all type
 
 When a class is defined in template form, the namespace itself assumes the form of an interface, which then all versions of the class generated then implement said interface, and extend the defined class if extend clause is present.
 
-**Syntax Definition:**  
+**Syntax Definition:**
 The specification must be defined before any [extends](#Class-Extends) or [implmenents](#Class-Implements) clauses and after the class' namespace.
 
 One class may have multiple specifiers via seperating them with a comma.
@@ -626,7 +629,7 @@ class <namespace>[<specifier>] {
 ```
 
 ## Class: Standard Methods
-Standard methods are methods used within [expressions](#Expression) to handle operators. These are not compulsory (except init), unless specified in an interface that is being implemented.  
+Standard methods are methods used within [expressions](#Expression) to handle operators. These are not compulsory (except init), unless specified in an interface that is being implemented.
 They also may have any modifiers on them unless specified otherwise.
 
 It is assumed that these methods return a new class instance, rather than altering the existing instance they were called upon. I.e. `a.__add__(b)` should not alter `a` but instead return a new value for the result.

@@ -1,10 +1,14 @@
 Title: Qupa's design choice for pointers & templates
 Date: 18/07/2020
 Tags: Article, Design-Decisions, Qupa
-Related: ./doc/langref.html
+Related: /qupa-lang/docs/langref.html
+unlisted: true
 ---
 Why our pointer syntax was chosen
 ---
+
+> **Qupa language has evolved into the [Uniview](/uniview.html) language, and has since had development abbandonded as it was still in conceptual phase**
+> This page among others is kept for archival purposes
 
 The core influence for Qupa's syntax was C++ however a goal of our language's is to be completely explicitly clear. Which means no interpretation order bias. Hence ambiguous context-sensitive uses of ``*``, ``<``, and ``>`` which are used in C/++ are not acceptable.
 
