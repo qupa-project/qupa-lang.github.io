@@ -1,0 +1,172 @@
+{
+	"name": "Qupa",
+	"scopeName": "source.qp",
+	"patterns": [
+		{"include": "#comment"},
+		{"include": "#constant"},
+		{"include": "#punctuation"},
+		{"include": "#external"},
+		{"include": "#keyword"},
+		{"include": "#opperator"},
+		{"include": "#call"},
+		{"include": "#function"},
+		{"include": "#declare"}
+	],
+	"repository": {
+		"constant": {
+			"name": "constant",
+			"patterns": [
+				{ "include": "#string" },
+				{ "name": "constant.language.true", "match" : "true" },
+				{ "name": "constant.language.false", "match" : "false" },
+				{ "include": "#constant.numeric"}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{ "include": "#inline_comment" },
+				{ "include": "#multi_comment" }
+			]
+		},
+		"multi_comment": {
+			"name": "comment.block.qp",
+			"begin": "\\/\\*",
+			"end": "\\*\\/"
+		},
+		"inline_comment": {
+			"name": "comment.block.qp",
+			"match": "(\\/\\/)(.*?)(\n)"
+		},
+		"string": {
+			"patterns": [
+				{ "include": "#single_string" },
+				{ "include": "#double_string" }
+			]
+		},
+		"double_string": {
+			"name": "string.quoted.double",
+			"match": "(\")(.*?)(\")"
+		},
+		"single_string": {
+			"name": "string.single.double",
+			"match": "(')(.*?)(')"
+		},
+		"constant.numeric": {
+			"name": "constant.numeric",
+			"pattenrns": [
+				{ "match": "(\\-?)(([1-9][0-9]*)|[0])" },
+				{ "match": "0x[0-9A-Fa-f]+" },
+				{ "match": "0o[0123]+" },
+				{ "match": "0b[1|0]+" },
+				{ "match": "(\\-?)([1-9][0-9]*|[0])(\\.)([0-9])*(\\e[0-9]+)?" }
+			]
+		},
+		"punctuation": {
+			"name": "punctuation",
+			"patterns": [
+				{"name": "punctuation.separator.delimiter.comma", "match": "," },
+				{"name": "punctuation.terminator.statement", "match": ";" },
+				{"name": "punctuation.definition.block", "match": "(\\{|\\})" },
+				{"name": "meta.brace.round", "match": "(\\(|\\))" }
+			]
+		},
+		"external": {
+			"name": "storage",
+			"match": "(external)(\\s+)(export|assume)",
+			"captures": {
+				"1": {
+					"name": "storage.type.extern"
+				},
+				"3": {
+					"name": "keyword"
+				}
+			}
+		},
+		"declare": {
+			"patterns": [
+				{
+					"name": "declare",
+					"match": "(([^\\s]|(\\[.*\\]))+)(\\s+)([A-z]+[A-z0-9]*)",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						}
+					}
+				}
+			]
+		},
+		"function": {
+			"patterns": [
+				{
+					"match": "([^\\s]+)(\\s+)(([^\\s(])+)(\\s*)\\((.*)\\)",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"3": {
+							"name": "entity.name.function"
+						},
+						"6": {
+							"name": "variable.parameter",
+							"match": [
+								{"include": "#punctuation"},
+								{"include": "#declare"}
+							]
+						}
+					}
+				},
+				{
+					"match": "([^\\s]+)(\\s+)(([^\\s(])+)(\\s*)\\((.*)\\)(\\s*);",
+					"captures": {
+						"1": {
+							"name": "storage.type"
+						},
+						"3": {
+							"name": "entity.name.function"
+						},
+						"6": {
+							"name": "variable.parameter",
+							"include": "#declare"
+						}
+					}
+				}
+			]
+		},
+		"call": {
+			"patterns": [
+				{
+					"match": "(([^\\s\\(]|(\\[.*\\]))+)(\\s*)\\((.*)\\)",
+					"captures": {
+						"1": {
+							"name": "entity.name.function"
+						}
+					}
+				}
+			]
+		},
+		"keyword": {
+			"patterns": [
+				{
+					"name": "keyword.control",
+					"match": "(if|elif|else|for|break|continue|import)[\\s\\;]"
+				},
+				{
+					"name": "keyword.control.import",
+					"match": "(import)\\s"
+				},
+				{
+					"name": "keyword.control.flow",
+					"match": "return[\\s\\;]"
+				}
+			]
+		},
+		"opperator": {
+			"patterns": [
+				{
+					"name": "keyword.operator",
+					"match": "\\-|\\+|\\=|\\*|\\/|\\%|\\@|\\$|\\&\\&|\\|\\|\\~"
+				}
+			]
+		}
+	}
+}
