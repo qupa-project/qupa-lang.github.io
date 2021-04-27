@@ -145,8 +145,11 @@ blockquote{
 	transition-property: margin-left, border-left, background-color;
 	transition-duration: 0.2s, 0.2s, 0.2s;
 }
-blockquote p {
-	margin: 0px;
+blockquote *:first-child {
+	margin-top: 0px;
+}
+blockquote *:last-child {
+	margin-bottom: 0px;
 }
 body[dark=true] blockquote {
 	color: #dce0e4;

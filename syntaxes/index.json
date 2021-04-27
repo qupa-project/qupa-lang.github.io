@@ -1,0 +1,33 @@
+{
+	"langs": [
+		{
+			"id": "c",
+			"scopeName": "source.c",
+			"path": "c.tmLanguage.json"
+		},{
+			"id": "cpp",
+			"scopeName": "source.cpp",
+			"path": "cpp.tmLanguage.json"
+		},{
+			"id": "javascript",
+			"scopeName": "source.js",
+			"path": "JavaScript.tmLanguage.json"
+		},{
+			"id": "json",
+			"scopeName": "source.json",
+			"path": "JSON.tmLanguage.json"
+		},{
+			"id": "python",
+			"scopeName": "source.python",
+			"path": "MagicPython.tmLanguage.json"
+		},{
+			"id": "rust",
+			"scopeName": "source.rust",
+			"path": "rust.tmLanguage.json"
+		},{
+			"id": "uniview",
+			"scopeName": "source.uv",
+			"path": "uniview.tmLanguage.json"
+		}
+	]
+}

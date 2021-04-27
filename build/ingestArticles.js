@@ -1,28 +1,20 @@
-const marked = require('marked');
 const path = require('path');
 const fs = require('fs');
 
 const GetFiles = require('./getFiles.js');
+const style = require('./style.js');
 
 let root = path.resolve(__dirname, "../");
 
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  pedantic: false,
-  gfm: true,
-  breaks: true,
-  sanitize: false,
-  smartLists: true,
-	smartypants: false,
-	langPrefix: true,
-	xhtml: false,
-	mangle: true
-});
 
 
-function IngestArticles(){
+
+async function IngestArticles(){
 	let files = GetFiles(root, ['.md'], ['.git', 'node_modules']);
+
+
+	let md = await style.create();
 
 	let posts = [];
 	let tags = {};
@@ -37,7 +29,7 @@ function IngestArticles(){
 		data = data.join('\n---\n');
 
 		// Process the body text
-		let convert = marked(data);
+		let convert = md.render(data);
 		let loc = "/"+path.relative(root, file.slice(0, -3) + '.html').toLowerCase().replace(/\\/g, "/");
 
 		// Process the metadata
