@@ -1,0 +1,17 @@
+{
+	"langs": [
+		{
+			"id": "uniview",
+			"scopeName": "source.uv",
+			"path": "uniview.tmLanguage.json"
+		},{
+			"id": "regexp",
+			"scopeName": "source.js.regexp",
+			"path": "regexp.tmLanguage.json"
+		},{
+			"id": "qupa",
+			"scopeName": "source.qp",
+			"path": "qupa.tmLanguage.json"
+		}
+	]
+}

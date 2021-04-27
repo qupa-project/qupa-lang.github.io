@@ -10,7 +10,7 @@ code{
 
 	padding: 2px 5px;
 	margin: 0px;
-	
+
 	transition-property: box-shadow;
 	transition-duration: 0.2s;
 }
@@ -29,7 +29,7 @@ pre code {
 
 	padding: 0.6em;
 	margin: 5px 5px 5px 10px;
-	
+
 	transition-property: box-shadow;
 	transition-duration: 0.2s;
 }
