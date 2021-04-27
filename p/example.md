@@ -31,7 +31,7 @@ Documentation on how to use my custom blog system
 ## Snippet
 
 ### Maths
-```math
+```
 a + b * c / d := e
 a ^ e ^ f +1<=2^{2e}
 34 \ 76 + 3
