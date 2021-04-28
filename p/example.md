@@ -6,6 +6,8 @@ unlisted: true
 Documentation on how to use my custom blog system
 ---
 
+<iframe src="/tag/document.html?embed=true" style="width: 100%; height: 300px"></iframe>
+
 # H1
 ## H2
 ### H3

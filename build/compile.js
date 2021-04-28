@@ -86,7 +86,7 @@ function BuildTagPage(name) {
 		body += '<article>';
 
 		body += `<div class="meta">`
-		body += `<a href="${entry.path}"><h3>${entry.title}</h3></a>`;
+		body += `<a href="${entry.path}" target="_top"><h3>${entry.title}</h3></a>`;
 		body += `<span class="date">${entry.date}</span>`;
 		body += `</div>`
 		// body += `<span class="author">${entry.author}</span>`;
@@ -96,11 +96,11 @@ function BuildTagPage(name) {
 
 		body += '<div class="tags">';
 		for (let tag of entry.tags){
-			body += `<a href="/tag/${tag.toLowerCase()}.html"><tag>${tag};</tag></a>`;
+			body += `<a href="/tag/${tag.toLowerCase()}.html" target="_top"><tag>${tag};</tag></a>`;
 		}
 		body += '</div></article>';
 	}
-	body += `<p><a href="/rss/${name.toLocaleLowerCase()}.rss">Tag specific RSS feed</a></p>`;
+	body += `<p class="rss"><a href="/rss/${name.toLocaleLowerCase()}.rss">Tag specific RSS feed</a></p>`;
 	body += '</div>';
 
 	return fs.writeFileSync(

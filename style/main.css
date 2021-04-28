@@ -2,6 +2,7 @@
 @import url("snippet.css");
 @import url("footer.css");
 @import url("head.css");
+@import url("embed.css");
 
 
 html {
@@ -42,6 +43,10 @@ body[dark=true] {
 	--color-head-sub: #6a737d;
 }
 
+
+iframe {
+	border: none;
+}
 
 
 h1{
