@@ -4,6 +4,9 @@ const http = require('http');
 const server = http.createServer((req, res)=>{
 	if (req.url == '/'){
 		req.url = '/index.html';
+	} else {
+		let index = req.url.indexOf('?');
+		req.url = index == -1 ? req.url : req.url.slice(0, index);
 	}
 
 	let path = '.'+req.url;

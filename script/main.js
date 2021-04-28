@@ -13,18 +13,15 @@ function JumpTo(anchorStr) {
 	}
 }
 
-window.addEventListener('load', ()=>{
-	UpdateTheme(localStorage.getItem("dark-theme") === "true");
-
-
-	function UpdateScroll(){
-		if (document.body.scrollTop / window.innerHeight > 0.2){
-			document.body.setAttribute('scrolled', true);
-		}else{
-			document.body.removeAttribute('scrolled');
-		}
+function UpdateScroll(){
+	if (document.body.scrollTop / window.innerHeight > 0.2){
+		document.body.setAttribute('scrolled', true);
+	}else{
+		document.body.removeAttribute('scrolled');
 	}
+}
 
+function SetupPage() {
 	document.body.onscroll = UpdateScroll;
 	UpdateScroll();
 
@@ -58,5 +55,19 @@ window.addEventListener('load', ()=>{
 		head.addEventListener('click', (evt)=>{
 			window.location.hash = `#${evt.target.id}`;
 		});
+	}
+}
+
+window.addEventListener('load', ()=>{
+	UpdateTheme(localStorage.getItem("dark-theme") === "true");
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const isEmbeded = urlParams.get('embed') !== null;
+
+
+	if (isEmbeded) {
+		document.body.setAttribute('embed', 'true');
+	} else {
+		SetupPage();
 	}
 });
