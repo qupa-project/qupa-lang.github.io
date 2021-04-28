@@ -6,6 +6,10 @@ A learn by example tutorial for Uniview.
 How if statements behave 
 ---
 
-<iframe src="/tag/uv-tut.html?embed" style="width: 100%;" fit=true></iframe>
+| [<< Variables](/uniview/tutorial/variables.html) | [Index](/uniview/tutorial/index.html) |
+|:-|-:|
 
 You're too fast, this page hasn't been written yet
+
+| [<< Variables](/uniview/tutorial/variables.html) | [Index](/uniview/tutorial/index.html) |
+|:-|-:|

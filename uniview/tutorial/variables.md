@@ -6,7 +6,9 @@ A learn by example tutorial for Uniview
 How variables behave in Uniview 
 ---
 
-<iframe src="/tag/uv-tut.html?embed" style="width: 100%;" fit=true></iframe>
+| [<< Index](/uniview/tutorial.html) |
+|:-|
+
 
 ## Linear Types
 
@@ -59,3 +61,6 @@ age(@p);   // the function aged the person p
            // and the new value was re assigned to p
 print($p); // { age: 19 }
 ```
+
+| [<< Index](/uniview/tutorial.html) | [If Statements >>](/uniview/tutorial/if-statements.html) |
+|:-|-:|
