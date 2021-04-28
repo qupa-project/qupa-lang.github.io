@@ -56,6 +56,17 @@ function SetupPage() {
 			window.location.hash = `#${evt.target.id}`;
 		});
 	}
+
+
+	let iframes = [...document.getElementsByTagName('iframe')]
+		.filter(x => x.getAttribute('fit') !== null);
+	console.log(iframes);
+	for (let iframe of iframes) {
+		if (iframe.contentWindow && iframe.contentWindow.body) {
+			iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight}px`;
+			iframe.style.width = '100%';
+		}
+	}
 }
 
 window.addEventListener('load', ()=>{

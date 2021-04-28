@@ -91,7 +91,7 @@ function BuildTagPage(name) {
 		body += `</div>`
 		// body += `<span class="author">${entry.author}</span>`;
 		body += `<div class="content"><p>`;
-		body += `${entry.description}`;
+		body += `${entry.description.replace(/  \n/g, "<br/>")}`;
 		body += `</p></div>`;
 
 		body += '<div class="tags">';
