@@ -112,7 +112,7 @@ body[embed=true] .tags {
 body[dark=true] .tags h6 {
 	color: #a5adb4;
 }
-.tags .tag{
+.tags tag{
 	font-weight: 800;
 	font-size: 12px;
 
@@ -121,7 +121,7 @@ body[dark=true] .tags h6 {
 
 	padding: 2px;
 }
-.tags .tag:hover{
+.tags tag:hover{
 	background-color: rgba(0, 0, 0, 0.05);
 }
 .tags a {
