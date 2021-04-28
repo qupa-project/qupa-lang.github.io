@@ -62,7 +62,7 @@ function SetupPage() {
 		.filter(x => x.getAttribute('fit') !== null);
 	console.log(iframes);
 	for (let iframe of iframes) {
-		if (iframe.contentWindow && iframe.contentWindow.body) {
+		if (iframe.contentWindow && iframe.contentWindow.document) {
 			iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight}px`;
 			iframe.style.width = '100%';
 		}
