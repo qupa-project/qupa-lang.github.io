@@ -6,6 +6,6 @@ A learn by example tutorial for Uniview.
 How if statements behave 
 ---
 
-<iframe src="/tag/uv-tut.html?embed" fit=true></iframe>
+<iframe src="/tag/uv-tut.html?embed" style="width: 100%;" fit=true></iframe>
 
 You're too fast, this page hasn't been written yet
