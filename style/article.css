@@ -1,3 +1,11 @@
+body[embed=true] .wrapper h2 {
+	display: none;
+}
+body[embed=true] .wrapper .rss {
+	display: none;
+}
+
+
 .wrapper article{
 	width: auto;
 
@@ -10,11 +18,20 @@
 	transition-property: padding, box-shadow;
 	transition-duration: 0.2s, 1s;
 }
+body[embed=true] .wrapper article {
+	padding: 5px;
+}
+
 @media (max-width: 700px){
 	.wrapper article{
 		padding: 5px 4% 20px 2%;
 	}
+
+	body[embed=true] .wrapper article {
+		padding: 5px;
+	}
 }
+
 
 .wrapper article:hover {
 	box-shadow: 0px 0px 20px 0px rgba(0,0,0, 0.1) inset;
@@ -38,6 +55,9 @@ body[dark=true] .wrapper article:hover {
 	float: right;
 
 	text-align: right;
+}
+body[embed=true] .wrapper article .date {
+	display: none;
 }
 .wrapper article a h3{
 	display: inline;
@@ -85,6 +105,10 @@ body[dark=true] .wrapper article:hover {
 
 	text-align: right;
 }
+body[embed=true] .tags {
+	display: none;
+}
+
 body[dark=true] .tags h6 {
 	color: #a5adb4;
 }

@@ -1,0 +1,7 @@
+body[embed=true] {
+	margin-top: 0px;
+}
+
+body[embed=true] header {
+	display: none;
+}
