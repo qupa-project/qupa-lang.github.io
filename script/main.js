@@ -64,6 +64,7 @@ function SetupPage() {
 	for (let iframe of iframes) {
 		if (iframe.contentWindow && iframe.contentWindow.body) {
 			iframe.style.height = `${iframe.contentWindow.document.body.scrollHeight}px`;
+			iframe.style.width = '100%';
 		}
 	}
 }
