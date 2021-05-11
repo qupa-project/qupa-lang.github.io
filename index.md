@@ -4,6 +4,8 @@ Date: 27/04/2021
 Massively multi-threaded applications should not massively increase cognitive load
 ---
 
+<iframe src="https://discord.com/widget?id=841495876941512714&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="float: right"></iframe>
+
 The primary goal of the Qupa project is to create a development environment designed for easily maintainable and intuative multithreaded programs.
 This has lead to the development of multiple concept languages, all of which the experience gained has culminated into uniview.
 
