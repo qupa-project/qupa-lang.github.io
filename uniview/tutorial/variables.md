@@ -1,14 +1,10 @@
 Title: Variables
-Date: 2/01/2000
+Date: 19/01/2000
 Tags: uv-tut
 ---
 A learn by example tutorial for Uniview  
 How variables behave in Uniview 
 ---
-
-| [<< Index](/uniview/tutorial.html) |
-|:-|
-
 
 ## Linear Types
 
@@ -62,5 +58,5 @@ age(@p);   // the function aged the person p
 print($p); // { age: 19 }
 ```
 
-| [<< Index](/uniview/tutorial.html) | [If Statements >>](/uniview/tutorial/if-statements.html) |
-|:-|-:|
+| [<< Introduction](/uniview/tutorial/introduction.html) | [Index](/uniview/tutorial.html) | [If Statements >>](/uniview/tutorial/if-statements.html) |
+|:-|:-:|-:|

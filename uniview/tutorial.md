@@ -5,13 +5,14 @@ Tags: Uniview, Tutorial
 A learn by example tutorial for Uniview
 ---
 
-| [<< Language Overview](/uniview.html) |
-|:-|
+
+This introduction is mainly targeted towards those who have some experience programming.  
+If you are new to programming this might be some what harder that some other tutorials to understand.
 
 ## Topics
 
 <iframe src="/tag/uv-tut.html?embed" style="width: 100%;" fit=true></iframe>
 
----
 
-You're too fast, this page hasn't been written yet.
+| [<< Language Overview](/uniview.html) | [Introduction >>](/uniview/tutorial/introduction.html) |
+|:-|-:|
