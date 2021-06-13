@@ -15,6 +15,10 @@ code{
 	transition-duration: 0.2s;
 }
 
+pre {
+	max-width: 600px;
+	margin: 0px auto;
+}
 pre code {
 	background-color: #272822;
 	color: #f8f8f0;
