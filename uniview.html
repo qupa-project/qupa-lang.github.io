@@ -7,8 +7,16 @@
 	<a href="/index.html" style="float: left;">Home</a>
 	<a href="/tag/article.html" style="float: left;">Feed</a>
 	<a style="float: right;">Qupa Project</a>
-</header><div class="wrapper"><h1>Uniview Language</h1><p>| <a href="https://uniview-docs.readthedocs.io/">Documentation</a> | <a href="https://discord.gg/dqcenR2n6m">Discord</a> | <a href="/uniview/syntax.html">Language Syntax</a> | <a href="https://github.com/qupa-project/uniview-lang">Source</a>
-|:-:|:-:|:-:|:-:|:-:|</p>
+</header><div class="wrapper"><h1>Uniview Language</h1><table>
+<thead>
+<tr>
+<th style="text-align:center"><a href="https://uniview-docs.readthedocs.io/">Documentation</a></th>
+<th style="text-align:center"><a href="https://discord.gg/dqcenR2n6m">Discord</a></th>
+<th style="text-align:center"><a href="/uniview/syntax.html">Language Syntax</a></th>
+<th style="text-align:center"><a href="https://github.com/qupa-project/uniview-lang">Source</a></th>
+</tr>
+</thead>
+</table>
 <p>The core concept behind the language is adding the smallest restrictions of variable visibility and lifetime to create massively possitive side affects. Each value may only be viewed once, the only way to re-view a value is if a clone was produced within the first sighting. Otherwise values are treated as complete black boxes until viewing is necessary.</p>
 <pre class="shiki" style="background-color: #272822"><code><span class="line"><span style="color: #66D9EF">let</span><span style="color: #F8F8F2"> p </span><span style="color: #F92672">=</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">Blank</span><span style="color: #F92672">#[</span><span style="color: #A6E22E">Person</span><span style="color: #F92672">]</span><span style="color: #F8F8F2">();</span></span>
 <span class="line"><span style="color: #A6E22E">print</span><span style="color: #F8F8F2">(</span><span style="color: #F92672">$</span><span style="color: #F8F8F2">p); </span><span style="color: #88846F">// prints a clone of p</span></span>
