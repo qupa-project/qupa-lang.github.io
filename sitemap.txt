@@ -1,5 +1,4 @@
 https://www.qupa.org/index.html
-https://www.qupa.org/uniview/documentation.html
 https://www.qupa.org/uniview/syntax.html
 https://www.qupa.org/uniview.html
 https://www.qupa.org/p/latent-access-optimisations.html
@@ -9,17 +8,11 @@ https://www.qupa.org/qupa-lang/docs/syntax-outline.html
 https://www.qupa.org/qupa-lang/docs/language-reference.html
 https://www.qupa.org/p/example.html
 https://www.qupa.org/readme.html
-https://www.qupa.org/uniview/tutorial/variables.html
-https://www.qupa.org/uniview/tutorial/if-statements.html
-https://www.qupa.org/uniview/tutorial.html
 https://www.qupa.org/tag/document.html
 https://www.qupa.org/tag/article.html
 https://www.qupa.org/tag/design-decisions.html
 https://www.qupa.org/tag/qupa.html
 https://www.qupa.org/tag/specification.html
 https://www.qupa.org/tag/uniview.html
-https://www.qupa.org/tag/documentation.html
-https://www.qupa.org/tag/uv-tut.html
-https://www.qupa.org/tag/tutorial.html
 https://www.qupa.org/tag/compiler.html
 https://www.qupa.org/tag/language.html
