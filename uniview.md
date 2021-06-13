@@ -5,7 +5,7 @@ Tags: Uniview, Compiler, Language
 View once immutability enabling the safeties of immutable code, while enjoying near procedural performance
 ---
 
-| [Documentation](/uniview/documentation.html) | [Tutorial](/uniview/tutorial.html) | [Discord](https://discord.gg/dqcenR2n6m) | [Language Syntax](/uniview/syntax.html) | [Source](https://github.com/qupa-project/uniview-lang)
+| [Documentation](https://uniview-docs.readthedocs.io/) | [Discord](https://discord.gg/dqcenR2n6m) | [Language Syntax](/uniview/syntax.html) | [Source](https://github.com/qupa-project/uniview-lang)
 |:-:|:-:|:-:|:-:|:-:|
 
 The core concept behind the language is adding the smallest restrictions of variable visibility and lifetime to create massively possitive side affects. Each value may only be viewed once, the only way to re-view a value is if a clone was produced within the first sighting. Otherwise values are treated as complete black boxes until viewing is necessary.
