@@ -1,6 +1,4 @@
 https://www.qupa.org/index.html
-https://www.qupa.org/uniview/syntax.html
-https://www.qupa.org/uniview.html
 https://www.qupa.org/p/latent-access-optimisations.html
 https://www.qupa.org/p/qupa-decision-pointers.html
 https://www.qupa.org/qupa-lang.html
@@ -13,6 +11,3 @@ https://www.qupa.org/tag/article.html
 https://www.qupa.org/tag/design-decisions.html
 https://www.qupa.org/tag/qupa.html
 https://www.qupa.org/tag/specification.html
-https://www.qupa.org/tag/uniview.html
-https://www.qupa.org/tag/compiler.html
-https://www.qupa.org/tag/language.html
